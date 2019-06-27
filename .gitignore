@@ -1,0 +1,12 @@
+.idea
+.metadata
+.recommenders
+.sonarlint
+RemoteSystemsTempFiles
+**/.classpath
+**/.dm
+**/.dmignore
+**/.project
+**/.settings
+**/target
+*.iml
