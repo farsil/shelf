@@ -4,8 +4,6 @@
 .sonarlint
 RemoteSystemsTempFiles
 **/.classpath
-**/.dm
-**/.dmignore
 **/.project
 **/.settings
 **/target
