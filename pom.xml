@@ -5,9 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.farsil</groupId>
-    <artifactId>utils</artifactId>
-    <name>Utilities</name>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>commons-function</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
