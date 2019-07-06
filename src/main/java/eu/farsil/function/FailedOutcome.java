@@ -11,7 +11,7 @@ class FailedOutcome implements Outcome {
 
 	@Override
 	public Outcome flatRecover(
-			final ThrowingFunction<? super Exception, Outcome> mapper) {
+			final ThrowingFunction<? super Exception, ? extends Outcome> mapper) {
 		try {
 			return mapper.apply(cause);
 		} catch (final Exception e) {
@@ -45,8 +45,7 @@ class FailedOutcome implements Outcome {
 	}
 
 	@Override
-	public Outcome recover(
-			final ThrowingConsumer<? super Exception> mapper) {
+	public Outcome recover(final ThrowingConsumer<? super Exception> mapper) {
 		try {
 			mapper.accept(cause);
 			return SuccessfulOutcome.INSTANCE;

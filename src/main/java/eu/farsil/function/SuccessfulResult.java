@@ -13,7 +13,8 @@ class SuccessfulResult<T> implements Result<T> {
 	@Override
 	public Result<T> filter(final ThrowingPredicate<? super T> predicate) {
 		try {
-			return predicate.test(value) ? this
+			return predicate.test(value)
+					? this
 					: new FailedResult<>(new PredicateFailedException(value));
 		} catch (final Exception e) {
 			return new FailedResult<>(e);
@@ -22,9 +23,11 @@ class SuccessfulResult<T> implements Result<T> {
 
 	@Override
 	public <V> Result<V> flatMap(
-			final ThrowingFunction<? super T, Result<V>> mapper) {
+			final ThrowingFunction<? super T, ? extends Result<? extends V>> mapper) {
 		try {
-			return mapper.apply(value);
+			@SuppressWarnings("unchecked")
+			final Result<V> result = (Result<V>) mapper.apply(value);
+			return result;
 		} catch (final Exception e) {
 			return new FailedResult<>(e);
 		}
@@ -32,7 +35,7 @@ class SuccessfulResult<T> implements Result<T> {
 
 	@Override
 	public Result<T> flatRecover(
-			final ThrowingFunction<? super Exception, Result<T>> mapper) {
+			final ThrowingFunction<? super Exception, ? extends Result<? extends T>> mapper) {
 		Objects.requireNonNull(mapper);
 		return this;
 	}
@@ -43,8 +46,7 @@ class SuccessfulResult<T> implements Result<T> {
 	}
 
 	@Override
-	public Result<T> ifSuccessful(
-			final ThrowingConsumer<? super T> action) {
+	public Result<T> ifSuccessful(final ThrowingConsumer<? super T> action) {
 		try {
 			action.accept(value);
 		} catch (final Exception e) {

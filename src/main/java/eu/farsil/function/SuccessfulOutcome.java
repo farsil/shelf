@@ -7,7 +7,7 @@ enum SuccessfulOutcome implements Outcome {
 
 	@Override
 	public Outcome flatRecover(
-			final ThrowingFunction<? super Exception, Outcome> mapper) {
+			final ThrowingFunction<? super Exception, ? extends Outcome> mapper) {
 		Objects.requireNonNull(mapper);
 		return this;
 	}
@@ -43,8 +43,7 @@ enum SuccessfulOutcome implements Outcome {
 	}
 
 	@Override
-	public Outcome recover(
-			final ThrowingConsumer<? super Exception> mapper) {
+	public Outcome recover(final ThrowingConsumer<? super Exception> mapper) {
 		Objects.requireNonNull(mapper);
 		return this;
 	}

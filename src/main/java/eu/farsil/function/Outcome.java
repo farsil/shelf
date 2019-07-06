@@ -1,16 +1,8 @@
 package eu.farsil.function;
 
 public interface Outcome {
-	static Outcome failure(final Exception cause) {
-		return new FailedOutcome(cause);
-	}
-
-	static Outcome success() {
-		return SuccessfulOutcome.INSTANCE;
-	}
-
 	Outcome flatRecover(
-			final ThrowingFunction<? super Exception, Outcome> mapper);
+			final ThrowingFunction<? super Exception, ? extends Outcome> mapper);
 
 	Exception getCause();
 

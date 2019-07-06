@@ -17,18 +17,21 @@ class FailedResult<T> implements Result<T> {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public <V> Result<V> flatMap(
-			final ThrowingFunction<? super T, Result<V>> mapper) {
+			final ThrowingFunction<? super T, ? extends Result<? extends V>> mapper) {
 		Objects.requireNonNull(mapper);
-		return (FailedResult<V>) this;
+		@SuppressWarnings("unchecked")
+		final Result<V> result = (Result<V>) this;
+		return result;
 	}
 
 	@Override
 	public Result<T> flatRecover(
-			final ThrowingFunction<? super Exception, Result<T>> mapper) {
+			final ThrowingFunction<? super Exception, ? extends Result<? extends T>> mapper) {
 		try {
-			return mapper.apply(cause);
+			@SuppressWarnings("unchecked")
+			final Result<T> result = (Result<T>) mapper.apply(cause);
+			return result;
 		} catch (final Exception e) {
 			return new FailedResult<>(e);
 		}
@@ -40,8 +43,7 @@ class FailedResult<T> implements Result<T> {
 	}
 
 	@Override
-	public Result<T> ifSuccessful(
-			final ThrowingConsumer<? super T> action) {
+	public Result<T> ifSuccessful(final ThrowingConsumer<? super T> action) {
 		Objects.requireNonNull(action);
 		return this;
 	}
@@ -52,11 +54,12 @@ class FailedResult<T> implements Result<T> {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public <V> Result<V> map(
 			final ThrowingFunction<? super T, ? extends V> mapper) {
 		Objects.requireNonNull(mapper);
-		return (FailedResult<V>) this;
+		@SuppressWarnings("unchecked")
+		final Result<V> result = (Result<V>) this;
+		return result;
 	}
 
 	@Override
