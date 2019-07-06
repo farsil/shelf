@@ -13,7 +13,9 @@ package eu.farsil.function;
  * The outcome of the computation is collected by either of the two classes
  * {@code Result} or {@code Outcome}, respectively returned by the methods
  * {@link #get(ThrowingSupplier) get()} and {@link #run(ThrowingRunnable)
- * run()}.
+ * run()}. This facilty is not meant to replace the {@code try/catch}
+ * mechanism entirely: its purpose is to help programmers deal with chains of
+ * method calls that may throw an exception when invoked.
  *
  * @author Marco Buzzanca
  * @see java.util.Optional

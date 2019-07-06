@@ -4,7 +4,7 @@ package eu.farsil.function;
  * Rappresenta un fornitore di risultati che può sollevare eccezioni.
  *
  * @param <T> il tipo di risultati che può essere fornito.
- * @author Marco Buzzanca (Accenture)
+ * @author Marco Buzzanca
  */
 @FunctionalInterface
 public interface ThrowingSupplier<T> {

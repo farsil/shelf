@@ -9,7 +9,7 @@ import java.util.function.Function;
  *
  * @param <T> il tipo dell'argomento della funzione.
  * @param <R> il tipo di ritorno della funzione.
- * @author Marco Buzzanca (Accenture)
+ * @author Marco Buzzanca
  */
 @FunctionalInterface
 public interface ThrowingFunction<T, R> {

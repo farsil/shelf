@@ -8,7 +8,7 @@ import java.util.function.Predicate;
  * sollevare eccezioni.
  *
  * @param <T> il tipo dell'argomento del predicato.
- * @author Marco Buzzanca (Accenture)
+ * @author Marco Buzzanca
  */
 @FunctionalInterface
 public interface ThrowingPredicate<T> {

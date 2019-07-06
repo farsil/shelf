@@ -3,7 +3,7 @@ package eu.farsil.function;
 /**
  * Rappresenta un'azione che può sollevare un'eccezione.
  *
- * @author Marco Buzzanca (Accenture)
+ * @author Marco Buzzanca
  */
 @FunctionalInterface
 public interface ThrowingRunnable {

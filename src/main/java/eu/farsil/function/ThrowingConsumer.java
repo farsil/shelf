@@ -8,7 +8,7 @@ import java.util.function.Consumer;
  * alcun risultato, e può sollevare un'eccezione.
  *
  * @param <T> il tipo dell'argomento dell'operazione.
- * @author Marco Buzzanca (Accenture)
+ * @author Marco Buzzanca
  */
 @FunctionalInterface
 public interface ThrowingConsumer<T> {
