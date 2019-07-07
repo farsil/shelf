@@ -15,6 +15,7 @@ public class AttemptFailedException extends RuntimeException {
 	 * @param cause the cause of the failure.
 	 * @throws NullPointerException if the cause is {@code null}.
 	 */
+	// package-private, users are not supposed to instantiate this class
 	AttemptFailedException(final Throwable cause) {
 		super(Objects.requireNonNull(cause));
 	}

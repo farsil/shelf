@@ -1,8 +1,8 @@
 package eu.farsil.commons.util;
 
 /**
- * Exception that may be thrown when a {@code Predicate} or {@code
- * ThrowingPredicate} fail.
+ * Exception that is intended to be thrown when a {@code Predicate} or {@code
+ * ThrowingPredicate} fails.
  *
  * @author Marco Buzzanca
  * @see java.util.function.Predicate
