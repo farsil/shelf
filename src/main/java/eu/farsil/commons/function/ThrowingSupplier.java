@@ -1,4 +1,4 @@
-package eu.farsil.function;
+package eu.farsil.commons.function;
 
 /**
  * Rappresenta un fornitore di risultati che può sollevare eccezioni.
@@ -15,16 +15,4 @@ public interface ThrowingSupplier<T> {
 	 * @throws Exception se il risultato non può essere ritornato.
 	 */
 	T get() throws Exception;
-
-	/**
-	 * Ritorna un {@link Try} costruito invocando questo {@link
-	 * ThrowingSupplier}.
-	 *
-	 * @return un {@code Try} costruito invocando questo {@code
-	 * ThrowingSupplier}.
-	 */
-	default Result<T> tryGet() {
-		// this = this::get since it's a functional interface
-		return Try.get(this);
-	}
 }

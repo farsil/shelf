@@ -1,4 +1,4 @@
-package eu.farsil.function;
+package eu.farsil.commons.function;
 
 /**
  * Rappresenta un'azione che può sollevare un'eccezione.
