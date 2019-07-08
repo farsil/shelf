@@ -1,16 +1,17 @@
 package eu.farsil.commons.function;
 
 /**
- * Rappresenta un'azione che può sollevare un'eccezione.
+ * Represents an action which may throw an exception.
  *
  * @author Marco Buzzanca
+ * @see Runnable
  */
 @FunctionalInterface
 public interface ThrowingRunnable {
 	/**
-	 * Esegue un'azione.
+	 * Performs an action.
 	 *
-	 * @throws Exception se l'azione non può essere portata a termine.
+	 * @throws Exception if the action cannot be performed.
 	 */
 	void run() throws Exception;
 }

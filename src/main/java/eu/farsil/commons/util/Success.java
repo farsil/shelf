@@ -5,6 +5,7 @@ import eu.farsil.commons.function.ThrowingFunction;
 import eu.farsil.commons.function.ThrowingPredicate;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -101,6 +102,13 @@ class Success<T> implements Try<T> {
 
 	@Override
 	public T orElseThrow() {
+		return value;
+	}
+
+	@Override
+	public <E extends Exception> T orElseThrow(
+			final Function<? super Exception, E> function) {
+		Objects.requireNonNull(function);
 		return value;
 	}
 

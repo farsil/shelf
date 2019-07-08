@@ -1,21 +1,22 @@
 package eu.farsil.commons.function;
 
 /**
- * Rappresenta una funzione che accetta un argomento, produce un risultato, e
- * può sollevare un'eccezione.
+ * Represents a function that accepts one argument and produces a result
+ * which may throw an exception.
  *
- * @param <T> il tipo dell'argomento della funzione.
- * @param <R> il tipo di ritorno della funzione.
+ * @param <T> the type of the input to the function.
+ * @param <R> the type of the result of the function.
  * @author Marco Buzzanca
+ * @see java.util.function.Function
  */
 @FunctionalInterface
 public interface ThrowingFunction<T, R> {
 	/**
-	 * Applica questa funzione all'argomento specificato.
+	 * Applies this function to the given argument.
 	 *
-	 * @param t l'argomento della funzione.
-	 * @return il risultato della funzione.
-	 * @throws Exception se il risultato della funzione non può essere ritornato.
+	 * @param t the function argument.
+	 * @return the function result.
+	 * @throws Exception if the function cannot be applied.
 	 */
 	R apply(T t) throws Exception;
 }

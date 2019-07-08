@@ -5,6 +5,7 @@ import eu.farsil.commons.function.ThrowingFunction;
 import eu.farsil.commons.function.ThrowingPredicate;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -93,6 +94,12 @@ class Failure<T> implements Try<T> {
 	@Override
 	public T orElseThrow() {
 		throw new AttemptFailedException(cause);
+	}
+
+	@Override
+	public <E extends Exception> T orElseThrow(
+			final Function<? super Exception, E> function) throws E {
+		throw function.apply(cause);
 	}
 
 	@Override

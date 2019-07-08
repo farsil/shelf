@@ -1,18 +1,19 @@
 package eu.farsil.commons.function;
 
 /**
- * Rappresenta un fornitore di risultati che può sollevare eccezioni.
+ * Represents a supplier of results which may throw an exception.
  *
- * @param <T> il tipo di risultati che può essere fornito.
+ * @param <T> the result type.
  * @author Marco Buzzanca
+ * @see java.util.function.Supplier
  */
 @FunctionalInterface
 public interface ThrowingSupplier<T> {
 	/**
-	 * Ritorna un rsultato.
+	 * Gets a result.
 	 *
-	 * @return il risultato.
-	 * @throws Exception se il risultato non può essere ritornato.
+	 * @return a result.
+	 * @throws Exception if a result cannot be returned.
 	 */
 	T get() throws Exception;
 }

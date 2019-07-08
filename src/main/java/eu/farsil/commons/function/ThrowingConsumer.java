@@ -1,20 +1,20 @@
 package eu.farsil.commons.function;
 
 /**
- * Rappresenta un'operazione che accetta un argomento in input, non restituisce
- * alcun risultato, e può sollevare un'eccezione.
+ * Represents an operation that accepts a single input argument and returns no
+ * result which may throw an exception.
  *
- * @param <T> il tipo dell'argomento dell'operazione.
+ * @param <T> the type of the input to the operation.
  * @author Marco Buzzanca
+ * @see java.util.function.Consumer
  */
 @FunctionalInterface
 public interface ThrowingConsumer<T> {
 	/**
-	 * Effettua quest'operazione sull'argomento specificato.
+	 * Performs this operation on the given argument.
 	 *
-	 * @param t l'argomento specificato.
-	 * @throws Exception se l'operazione non può essere applicata all'argomento
-	 * specificato.
+	 * @param t the input argument.
+	 * @throws Exception if the operation cannot be performed.
 	 */
 	void accept(T t) throws Exception;
 }

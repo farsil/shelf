@@ -5,6 +5,7 @@ import eu.farsil.commons.function.ThrowingFunction;
 import eu.farsil.commons.function.ThrowingPredicate;
 import eu.farsil.commons.function.ThrowingSupplier;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -30,7 +31,7 @@ import java.util.function.Supplier;
  * It is also possible to evaluate the success of the computation using the
  * {@link #isSuccessful()} and the {@link #getCause()} methods.
  * <p/>
- * This facilty is not meant to replace the {@code try/catch} mechanism
+ * This class is not meant to replace the {@code try/catch} mechanism
  * entirely: its purpose is to help programmers deal with chains of method
  * calls that may throw an exception when invoked.
  *
@@ -123,6 +124,8 @@ public interface Try<T> {
 	 * otherwise.
 	 */
 	default boolean isSuccessful() {
+		// for documentation only, Failure and Success subclasses
+		// override this method and actually hardcode the appropriate boolean
 		return getCause() == null;
 	}
 
@@ -179,6 +182,25 @@ public interface Try<T> {
 	 * @throws AttemptFailedException if the computation was unsuccessful.
 	 */
 	T orElseThrow();
+
+	/**
+	 * Returns the computed value if the computation was successful,
+	 * otherwise throws an exception obtained by applying the specified
+	 * function to the cause of the failure.
+	 * <p/>
+	 * The given function is usually an exception constructor that takes a
+	 * single exception argument, used for exception chaining:
+	 * <pre>{@code final int result = Try.get(() -> Integer.parseInt(someString))
+	 *      .map(Math::abs)
+	 *      .orElseThrow(IllegalArgumentException::new);}</pre>
+	 *
+	 * @param <E> the exception type.
+	 * @param function the function to apply to the cause of the failure.
+	 * @return the computed value.
+	 * @throws E if the computation was unsuccessful.
+	 */
+	<E extends Exception> T orElseThrow(
+			final Function<? super Exception, E> function) throws E;
 
 	/**
 	 * Applies the given mapping function to the cause of the failure if the
