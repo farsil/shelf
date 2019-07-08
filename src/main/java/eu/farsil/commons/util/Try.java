@@ -5,6 +5,7 @@ import eu.farsil.commons.function.ThrowingFunction;
 import eu.farsil.commons.function.ThrowingPredicate;
 import eu.farsil.commons.function.ThrowingSupplier;
 
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -42,7 +43,7 @@ import java.util.function.Supplier;
 public interface Try<T> {
 	/**
 	 * Attempts to perform a computation that returns a value, which is
-	 * represented by the specified {@code ThrowingSupplier}. If it throws an
+	 * represented by the specified supplier. If it throws an
 	 * exception, the result returned will be in a <i>failed</i> state,
 	 * otherwise it will be in a <i>successful</i> state.
 	 *
@@ -51,9 +52,11 @@ public interface Try<T> {
 	 * @return an instance of {@code Try}, which represents the outcome of
 	 * a computation that returns a value, in a successful or failed
 	 * state. The {@code Try} instance may further processed with its
+	 * @throws NullPointerException if the supplier is {@code null}.
 	 * fluent interface.
 	 */
 	static <T> Try<T> get(final ThrowingSupplier<? extends T> supplier) {
+		Objects.requireNonNull(supplier);
 		try {
 			return new Success<>(supplier.get());
 		} catch (final Exception e) {
@@ -69,6 +72,7 @@ public interface Try<T> {
 	 * @param predicate the predicate to match the result against.
 	 * @return a failure if the result does not match the predicate or the
 	 * predicate throws, a success otherwise.
+	 * @throws NullPointerException if the predicate is {@code null}.
 	 * @see ThrowingPredicate
 	 */
 	Try<T> filter(final ThrowingPredicate<? super T> predicate);
@@ -84,6 +88,7 @@ public interface Try<T> {
 	 * @param <V> the type of the returned {@code Try}.
 	 * @return an instance of {@code Try} obtained by applying the given
 	 * function if the computation was successful, a failure otherwise.
+	 * @throws NullPointerException if the function is {@code null}.
 	 * @see ThrowingFunction
 	 */
 	<V> Try<V> flatMap(
@@ -99,6 +104,7 @@ public interface Try<T> {
 	 * @param mapper the function to apply.
 	 * @return an instance of {@code Try} obtained by applying the given
 	 * function if the computation was unsuccessful, a success otherwise.
+	 * @throws NullPointerException if the function is {@code null}.
 	 * @see ThrowingFunction
 	 */
 	Try<T> flatRecover(
@@ -113,6 +119,7 @@ public interface Try<T> {
 	 * @param action the action to perform. The computed value is passed as a
 	 * parameter.
 	 * @return this instance, or a failure if the action throws.
+	 * @throws NullPointerException if the action is {@code null}.
 	 * @see ThrowingConsumer
 	 */
 	Try<T> ifSuccessful(final ThrowingConsumer<? super T> action);
@@ -150,6 +157,7 @@ public interface Try<T> {
 	 * @param <V> the type of the returned {@code Try}.
 	 * @return a success obtained by applying the given function if
 	 * the computation was successful, a failure otherwise.
+	 * @throws NullPointerException if the function is {@code null}.
 	 * @see ThrowingFunction
 	 */
 	<V> Try<V> map(final ThrowingFunction<? super T, ? extends V> mapper);
@@ -169,6 +177,7 @@ public interface Try<T> {
 	 *
 	 * @return the computed value if the computation was successful,
 	 * a value obtained from the given supplier otherwise.
+	 * @throws NullPointerException if the supplier is {@code null}.
 	 * @see Supplier
 	 */
 	T orElseGet(final Supplier<? extends T> supplier);
@@ -197,6 +206,7 @@ public interface Try<T> {
 	 * @param <E> the exception type.
 	 * @param function the function to apply to the cause of the failure.
 	 * @return the computed value.
+	 * @throws NullPointerException if the function is {@code null}.
 	 * @throws E if the computation was unsuccessful.
 	 */
 	<E extends Exception> T orElseThrow(
@@ -214,6 +224,7 @@ public interface Try<T> {
 	 * @return a success obtained by applying the given function if
 	 * the computation was unsuccessful, a success if the computation was
 	 * successful, or a failure if the given function throws an exception.
+	 * @throws NullPointerException if the function is {@code null}.
 	 * @see ThrowingFunction
 	 */
 	Try<T> recover(

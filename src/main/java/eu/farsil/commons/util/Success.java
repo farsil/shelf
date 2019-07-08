@@ -31,6 +31,7 @@ class Success<T> implements Try<T> {
 
 	@Override
 	public Try<T> filter(final ThrowingPredicate<? super T> predicate) {
+		Objects.requireNonNull(predicate);
 		try {
 			return predicate.test(value)
 					? this
@@ -43,6 +44,7 @@ class Success<T> implements Try<T> {
 	@Override
 	public <V> Try<V> flatMap(
 			final ThrowingFunction<? super T, ? extends Try<? extends V>> mapper) {
+		Objects.requireNonNull(mapper);
 		try {
 			@SuppressWarnings("unchecked")
 			final Try<V> result = (Try<V>) mapper.apply(value);
@@ -66,6 +68,7 @@ class Success<T> implements Try<T> {
 
 	@Override
 	public Try<T> ifSuccessful(final ThrowingConsumer<? super T> action) {
+		Objects.requireNonNull(action);
 		try {
 			action.accept(value);
 		} catch (final Exception e) {
@@ -82,6 +85,7 @@ class Success<T> implements Try<T> {
 	@Override
 	public <V> Try<V> map(
 			final ThrowingFunction<? super T, ? extends V> mapper) {
+		Objects.requireNonNull(mapper);
 		try {
 			return new Success<>(mapper.apply(value));
 		} catch (final Exception e) {
