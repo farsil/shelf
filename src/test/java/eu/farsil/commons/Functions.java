@@ -30,16 +30,16 @@ public class Functions {
 		};
 	}
 
-	public static <T, E extends Exception> ThrowingSupplier<T> throwingSupplier(
+	public static <T, E extends Exception> ThrowingPredicate<T> throwingPredicate(
 			final Supplier<E> supplier) {
-		return () -> {
+		return t -> {
 			throw supplier.get();
 		};
 	}
 
-	public static <T, E extends Exception> ThrowingPredicate<T> throwingPredicate(
+	public static <T, E extends Exception> ThrowingSupplier<T> throwingSupplier(
 			final Supplier<E> supplier) {
-		return t -> {
+		return () -> {
 			throw supplier.get();
 		};
 	}

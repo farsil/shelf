@@ -10,25 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TryTest {
 	@Test
-	void defaultIsSuccessfulTest() {
-		class SubjectClass extends NullObjectTry {
-			private final Exception cause;
-
-			private SubjectClass(final Exception cause) {
-				this.cause = cause;
-			}
-
-			@Override
-			public Exception getCause() {
-				return cause;
-			}
-		}
-
-		assertTrue(new SubjectClass(null).isSuccessful());
-		assertFalse(new SubjectClass(new DummyException()).isSuccessful());
-	}
-
-	@Test
 	void getTest() {
 		assertThrows(NullPointerException.class, () -> Try.get(null));
 

@@ -130,11 +130,7 @@ public interface Try<T> {
 	 * @return {@code true} if the computation was successful, {@code false}
 	 * otherwise.
 	 */
-	default boolean isSuccessful() {
-		// for documentation only, Failure and Success subclasses
-		// override this method and actually hardcode the appropriate boolean
-		return getCause() == null;
-	}
+	boolean isSuccessful();
 
 	/**
 	 * Returns the cause of the failure or {@code null} if the

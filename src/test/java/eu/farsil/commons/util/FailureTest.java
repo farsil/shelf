@@ -128,12 +128,10 @@ class FailureTest {
 		final Exception expected = new FailureTestException();
 		final Try<Integer> subject = new Failure<>(expected);
 
-		assertThrows(NullPointerException.class,
-				() -> subject.recover(null));
+		assertThrows(NullPointerException.class, () -> subject.recover(null));
 
 		assertEquals(expected.hashCode(),
-				subject.recover(Object::hashCode)
-						.orElseThrow());
+				subject.recover(Object::hashCode).orElseThrow());
 
 		assertInstanceOf(DummyException.class,
 				subject.recover(throwingFunction(DummyException::new))
