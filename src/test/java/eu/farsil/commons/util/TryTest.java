@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import static eu.farsil.commons.Assertions.assertInstanceOf;
 import static eu.farsil.commons.Assertions.assertSupplierDoesNotThrow;
 import static eu.farsil.commons.Functions.throwingSupplier;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TryTest {
 	@Test

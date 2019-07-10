@@ -127,8 +127,7 @@ class SuccessTest {
 
 		assertEquals(1, subject.recover(e -> null).orElseThrow());
 
-		assertEquals(1,
-				subject.recover(throwingFunction(DummyException::new))
-						.orElseThrow());
+		assertEquals(1, subject.recover(throwingFunction(DummyException::new))
+				.orElseThrow());
 	}
 }

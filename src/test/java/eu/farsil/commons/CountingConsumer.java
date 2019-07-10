@@ -2,8 +2,7 @@ package eu.farsil.commons;
 
 import eu.farsil.commons.function.ThrowingConsumer;
 
-public final class CountingConsumer<T>
-		implements ThrowingConsumer<T> {
+public final class CountingConsumer<T> implements ThrowingConsumer<T> {
 	private int invocations;
 
 	CountingConsumer() {

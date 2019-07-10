@@ -111,6 +111,16 @@ public interface Try<T> {
 			final ThrowingFunction<? super Exception, ? extends Try<? extends T>> mapper);
 
 	/**
+	 * Returns the cause of the failure or {@code null} if the
+	 * computation was successful.
+	 *
+	 * @return the cause of the failure, or {@code null} if the computation
+	 * was successful.
+	 * @see #isSuccessful()
+	 */
+	Exception getCause();
+
+	/**
 	 * Performs the given action only if the computation was successful.
 	 * <p/>
 	 * If the action throws an exception it returns a failure, otherwise it
@@ -131,16 +141,6 @@ public interface Try<T> {
 	 * otherwise.
 	 */
 	boolean isSuccessful();
-
-	/**
-	 * Returns the cause of the failure or {@code null} if the
-	 * computation was successful.
-	 *
-	 * @return the cause of the failure, or {@code null} if the computation
-	 * was successful.
-	 * @see #isSuccessful()
-	 */
-	Exception getCause();
 
 	/**
 	 * Applies the given mapping function to the computed value if the
