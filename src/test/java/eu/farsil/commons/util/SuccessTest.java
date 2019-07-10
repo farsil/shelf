@@ -1,43 +1,15 @@
 package eu.farsil.commons.util;
 
-import eu.farsil.commons.function.ThrowingConsumer;
-import eu.farsil.commons.function.ThrowingFunction;
-import eu.farsil.commons.function.ThrowingPredicate;
+import eu.farsil.commons.CountingConsumer;
+import eu.farsil.commons.DummyException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.ThrowingSupplier;
 
-import java.util.function.Supplier;
-
+import static eu.farsil.commons.Assertions.assertInstanceOf;
+import static eu.farsil.commons.Assertions.assertSupplierDoesNotThrow;
+import static eu.farsil.commons.Functions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SuccessTest {
-	// necessary because java type inference is still kind of weak
-	private static <T> T assertSupplierDoesNotThrow(
-			final ThrowingSupplier<T> supplier) {
-		return assertDoesNotThrow(supplier);
-	}
-
-	private static <T, E extends Exception> ThrowingConsumer<T> throwingConsumer(
-			final Supplier<E> supplier) {
-		return t -> {
-			throw supplier.get();
-		};
-	}
-
-	private static <T, R, E extends Exception> ThrowingFunction<T, R> throwingFunction(
-			final Supplier<E> supplier) {
-		return t -> {
-			throw supplier.get();
-		};
-	}
-
-	private static <T, E extends Exception> ThrowingPredicate<T> throwingPredicate(
-			final Supplier<E> supplier) {
-		return t -> {
-			throw supplier.get();
-		};
-	}
-
 	@Test
 	void filterTest() {
 		final Try<Double> subject = new Success<>(1.0);
@@ -47,11 +19,12 @@ class SuccessTest {
 		assertEquals(1.0, assertSupplierDoesNotThrow(
 				subject.filter(i -> i > 0)::orElseThrow));
 
-		assertTrue(subject.filter(i -> i < 0)
-				.getCause() instanceof PredicateFailedException);
+		assertInstanceOf(PredicateFailedException.class,
+				subject.filter(i -> i < 0).getCause());
 
-		assertTrue(subject.filter(throwingPredicate(DummyException::new))
-				.getCause() instanceof DummyException);
+		assertInstanceOf(DummyException.class,
+				subject.filter(throwingPredicate(DummyException::new))
+						.getCause());
 	}
 
 	@Test
@@ -63,8 +36,9 @@ class SuccessTest {
 		assertEquals(2.0, assertSupplierDoesNotThrow(
 				subject.flatMap(i -> new Success<>(i * 2.0))::orElseThrow));
 
-		assertTrue(subject.flatMap(throwingFunction(DummyException::new))
-				.getCause() instanceof DummyException);
+		assertInstanceOf(DummyException.class,
+				subject.flatMap(throwingFunction(DummyException::new))
+						.getCause());
 	}
 
 	@Test
@@ -87,16 +61,17 @@ class SuccessTest {
 	void ifSuccessfulTest() throws Exception {
 		final Try<Integer> subject = new Success<>(1);
 
-		final VerifiableConsumer<Integer> action = new VerifiableConsumer<>();
+		final CountingConsumer<Integer> action = countingConsumer();
 
 		assertThrows(NullPointerException.class,
 				() -> subject.ifSuccessful(null));
 
 		assertDoesNotThrow(() -> subject.ifSuccessful(action));
-		assertEquals(1, action.invocations);
+		assertEquals(1, action.getInvocations());
 
-		assertTrue(subject.ifSuccessful(throwingConsumer(DummyException::new))
-				.getCause() instanceof DummyException);
+		assertInstanceOf(DummyException.class,
+				subject.ifSuccessful(throwingConsumer(DummyException::new))
+						.getCause());
 	}
 
 	@Test
@@ -113,8 +88,8 @@ class SuccessTest {
 		assertEquals(2.0, assertSupplierDoesNotThrow(
 				subject.map(i -> i * 2.0)::orElseThrow));
 
-		assertTrue(subject.map(throwingFunction(DummyException::new))
-				.getCause() instanceof DummyException);
+		assertInstanceOf(DummyException.class,
+				subject.map(throwingFunction(DummyException::new)).getCause());
 	}
 
 	@Test
@@ -145,25 +120,5 @@ class SuccessTest {
 
 		assertEquals(subject.orElseThrow(),
 				subject.recover(i -> null).orElseThrow());
-	}
-
-	private static final class DummyException extends RuntimeException {
-		private DummyException() {
-			super();
-		}
-
-		private DummyException(final Exception e) {
-			super(e);
-		}
-	}
-
-	private static final class VerifiableConsumer<T>
-			implements ThrowingConsumer<T> {
-		private int invocations = 0;
-
-		@Override
-		public void accept(final T t) {
-			invocations++;
-		}
 	}
 }
