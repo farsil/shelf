@@ -3,6 +3,7 @@ package eu.farsil.commons;
 import eu.farsil.commons.function.ThrowingConsumer;
 import eu.farsil.commons.function.ThrowingFunction;
 import eu.farsil.commons.function.ThrowingPredicate;
+import eu.farsil.commons.function.ThrowingSupplier;
 
 import java.util.function.Supplier;
 
@@ -25,6 +26,13 @@ public class Functions {
 	public static <T, R, E extends Exception> ThrowingFunction<T, R> throwingFunction(
 			final Supplier<E> supplier) {
 		return t -> {
+			throw supplier.get();
+		};
+	}
+
+	public static <T, E extends Exception> ThrowingSupplier<T> throwingSupplier(
+			final Supplier<E> supplier) {
+		return () -> {
 			throw supplier.get();
 		};
 	}

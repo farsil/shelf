@@ -19,8 +19,8 @@ class SuccessTest {
 		assertEquals(1.0, assertSupplierDoesNotThrow(
 				subject.filter(i -> i > 0)::orElseThrow));
 
-		assertInstanceOf(PredicateFailedException.class,
-				subject.filter(i -> i < 0).getCause());
+		assertEquals(1.0, assertInstanceOf(PredicateFailedException.class,
+				subject.filter(i -> i < 0).getCause()).getValue());
 
 		assertInstanceOf(DummyException.class,
 				subject.filter(throwingPredicate(DummyException::new))
@@ -37,6 +37,10 @@ class SuccessTest {
 				subject.flatMap(i -> new Success<>(i * 2.0))::orElseThrow));
 
 		assertInstanceOf(DummyException.class,
+				subject.flatMap(i -> new Failure<>(new DummyException()))
+						.getCause());
+
+		assertInstanceOf(DummyException.class,
 				subject.flatMap(throwingFunction(DummyException::new))
 						.getCause());
 	}
@@ -48,8 +52,11 @@ class SuccessTest {
 		assertThrows(NullPointerException.class,
 				() -> subject.flatRecover(null));
 
-		assertEquals(subject.orElseThrow(),
-				subject.flatRecover(i -> null).orElseThrow());
+		assertEquals(1, subject.flatRecover(e -> null).orElseThrow());
+
+		assertEquals(1,
+				subject.flatRecover(throwingFunction(DummyException::new))
+						.orElseThrow());
 	}
 
 	@Test
@@ -58,7 +65,7 @@ class SuccessTest {
 	}
 
 	@Test
-	void ifSuccessfulTest() throws Exception {
+	void ifSuccessfulTest() {
 		final Try<Integer> subject = new Success<>(1);
 
 		final CountingConsumer<Integer> action = countingConsumer();
@@ -118,7 +125,10 @@ class SuccessTest {
 
 		assertThrows(NullPointerException.class, () -> subject.recover(null));
 
-		assertEquals(subject.orElseThrow(),
-				subject.recover(i -> null).orElseThrow());
+		assertEquals(1, subject.recover(e -> null).orElseThrow());
+
+		assertEquals(1,
+				subject.recover(throwingFunction(DummyException::new))
+						.orElseThrow());
 	}
 }

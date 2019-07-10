@@ -47,6 +47,7 @@ class Failure<T> implements Try<T> {
 	@Override
 	public Try<T> flatRecover(
 			final ThrowingFunction<? super Exception, ? extends Try<? extends T>> mapper) {
+		Objects.requireNonNull(mapper);
 		try {
 			@SuppressWarnings("unchecked")
 			final Try<T> result = (Try<T>) mapper.apply(cause);
@@ -105,6 +106,7 @@ class Failure<T> implements Try<T> {
 	@Override
 	public Try<T> recover(
 			final ThrowingFunction<? super Exception, ? extends T> mapper) {
+		Objects.requireNonNull(mapper);
 		try {
 			final T recovered = mapper.apply(cause);
 			return new Success<>(recovered);
