@@ -59,13 +59,14 @@ class SuccessTest {
 
 	@Test
 	void flatRecoverTest() {
-		final Try<Integer> subject = new Success<>(1);
+		final Try<Double> subject = new Success<>(1.0);
 		assertThrows(NullPointerException.class,
 				() -> subject.flatRecover(null));
 
-		final ThrowingFunction<Exception, Try<Integer>> mock =
+		final ThrowingFunction<Exception, Try<Double>> mock =
 				throwingFunction();
-		assertEquals(1, subject.flatRecover(mock).orElseThrow());
+		assertEquals(1.0,
+				assertDoesSupply(subject.flatRecover(mock)::orElseThrow));
 		verifyZeroInteractions(mock);
 	}
 
@@ -125,7 +126,8 @@ class SuccessTest {
 	@Test
 	void orElseThrowAnyTest() {
 		final Function<Exception, IOException> mock = function();
-		assertEquals(1, new Success<>(1).orElseThrow(mock));
+		assertEquals(1,
+				assertDoesSupply(() -> new Success<>(1).orElseThrow(mock)));
 		verifyZeroInteractions(mock);
 	}
 
@@ -136,11 +138,11 @@ class SuccessTest {
 
 	@Test
 	void recoverTest() {
-		final Try<Integer> subject = new Success<>(1);
+		final Try<Double> subject = new Success<>(1.0);
 		assertThrows(NullPointerException.class, () -> subject.recover(null));
 
-		final ThrowingFunction<Exception, Integer> mock = throwingFunction();
-		assertEquals(1, subject.recover(mock).orElseThrow());
+		final ThrowingFunction<Exception, Double> mock = throwingFunction();
+		assertEquals(1.0, assertDoesSupply(subject.recover(mock)::orElseThrow));
 		verifyZeroInteractions(mock);
 	}
 }
