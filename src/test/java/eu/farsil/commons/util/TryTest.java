@@ -1,23 +1,29 @@
 package eu.farsil.commons.util;
 
-import eu.farsil.commons.DummyException;
+import eu.farsil.commons.function.ThrowingSupplier;
 import org.junit.jupiter.api.Test;
 
-import static eu.farsil.commons.Assertions.assertInstanceOf;
-import static eu.farsil.commons.Assertions.assertSupplierDoesNotThrow;
-import static eu.farsil.commons.Functions.throwingSupplier;
+import java.io.IOException;
+
+import static eu.farsil.commons.mock.Functions.throwingSupplier;
+import static eu.farsil.commons.test.MoreAssertions.assertDoesSupply;
+import static eu.farsil.commons.test.MoreAssertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 class TryTest {
 	@Test
-	void getTest() {
+	void getTest() throws Exception {
 		assertThrows(NullPointerException.class, () -> Try.get(null));
 
-		assertEquals(1.0,
-				assertSupplierDoesNotThrow(Try.get(() -> 1.0)::orElseThrow));
+		final ThrowingSupplier<Double> mock = throwingSupplier();
+		when(mock.get()).thenReturn(1.0);
+		assertEquals(1.0, assertDoesSupply(Try.get(mock)::orElseThrow));
+		verify(mock).get();
 
-		assertInstanceOf(DummyException.class,
-				Try.get(throwingSupplier(DummyException::new)).getCause());
+		doThrow(IOException.class).when(mock).get();
+		assertInstanceOf(IOException.class, Try.get(mock).getCause());
+		verify(mock, times(2)).get();
 	}
 }

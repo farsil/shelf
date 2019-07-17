@@ -1,62 +1,72 @@
 package eu.farsil.commons.util;
 
-import eu.farsil.commons.CountingConsumer;
-import eu.farsil.commons.DummyException;
+import eu.farsil.commons.function.ThrowingConsumer;
+import eu.farsil.commons.function.ThrowingFunction;
+import eu.farsil.commons.function.ThrowingPredicate;
 import org.junit.jupiter.api.Test;
 
-import static eu.farsil.commons.Assertions.assertInstanceOf;
-import static eu.farsil.commons.Assertions.assertSupplierDoesNotThrow;
-import static eu.farsil.commons.Functions.*;
+import java.io.IOException;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static eu.farsil.commons.mock.Functions.*;
+import static eu.farsil.commons.test.MoreAssertions.assertDoesSupply;
+import static eu.farsil.commons.test.MoreAssertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class SuccessTest {
 	@Test
-	void filterTest() {
+	void filterTest() throws Exception {
 		final Try<Double> subject = new Success<>(1.0);
-
 		assertThrows(NullPointerException.class, () -> subject.filter(null));
 
-		assertEquals(1.0, assertSupplierDoesNotThrow(
-				subject.filter(i -> i > 0)::orElseThrow));
+		final ThrowingPredicate<Double> mock = throwingPredicate();
+		when(mock.test(1.0)).thenReturn(true);
+		assertEquals(1.0, assertDoesSupply(subject.filter(mock)::orElseThrow));
+		verify(mock).test(1.0);
 
+		when(mock.test(1.0)).thenReturn(false);
 		assertEquals(1.0, assertInstanceOf(PredicateFailedException.class,
-				subject.filter(i -> i < 0).getCause()).getValue());
+				subject.filter(mock).getCause()).getValue());
+		verify(mock, times(2)).test(1.0);
 
-		assertInstanceOf(DummyException.class,
-				subject.filter(throwingPredicate(DummyException::new))
-						.getCause());
+		doThrow(IllegalStateException.class).when(mock).test(1.0);
+		assertInstanceOf(IllegalStateException.class,
+				subject.filter(mock).getCause());
+		verify(mock, times(3)).test(1.0);
 	}
 
 	@Test
-	void flatMapTest() {
+	void flatMapTest() throws Exception {
 		final Try<Integer> subject = new Success<>(1);
-
 		assertThrows(NullPointerException.class, () -> subject.flatMap(null));
 
-		assertEquals(2.0, assertSupplierDoesNotThrow(
-				subject.flatMap(i -> new Success<>(i * 2.0))::orElseThrow));
+		final ThrowingFunction<Integer, Try<Double>> mock = throwingFunction();
+		when(mock.apply(1)).thenReturn(new Success<>(2.0));
+		assertEquals(2.0, assertDoesSupply(subject.flatMap(mock)::orElseThrow));
+		verify(mock).apply(1);
 
-		assertInstanceOf(DummyException.class,
-				subject.flatMap(i -> new Failure<>(new DummyException()))
-						.getCause());
+		when(mock.apply(1)).thenReturn(new Failure<>(new IOException()));
+		assertInstanceOf(IOException.class, subject.flatMap(mock).getCause());
+		verify(mock, times(2)).apply(1);
 
-		assertInstanceOf(DummyException.class,
-				subject.flatMap(throwingFunction(DummyException::new))
-						.getCause());
+		doThrow(IllegalStateException.class).when(mock).apply(1);
+		assertInstanceOf(IllegalStateException.class,
+				subject.flatMap(mock).getCause());
+		verify(mock, times(3)).apply(1);
 	}
 
 	@Test
 	void flatRecoverTest() {
 		final Try<Integer> subject = new Success<>(1);
-
 		assertThrows(NullPointerException.class,
 				() -> subject.flatRecover(null));
 
-		assertEquals(1, subject.flatRecover(e -> null).orElseThrow());
-
-		assertEquals(1,
-				subject.flatRecover(throwingFunction(DummyException::new))
-						.orElseThrow());
+		final ThrowingFunction<Exception, Try<Integer>> mock =
+				throwingFunction();
+		assertEquals(1, subject.flatRecover(mock).orElseThrow());
+		verifyZeroInteractions(mock);
 	}
 
 	@Test
@@ -65,20 +75,19 @@ class SuccessTest {
 	}
 
 	@Test
-	void ifSuccessfulTest() {
+	void ifSuccessfulTest() throws Exception {
 		final Try<Integer> subject = new Success<>(1);
-
-		final CountingConsumer<Integer> action = countingConsumer();
-
 		assertThrows(NullPointerException.class,
 				() -> subject.ifSuccessful(null));
 
-		assertDoesNotThrow(() -> subject.ifSuccessful(action));
-		assertEquals(1, action.getInvocations());
+		final ThrowingConsumer<Integer> mock = throwingConsumer();
+		assertTrue(subject.ifSuccessful(mock).isSuccessful());
+		verify(mock).accept(1);
 
-		assertInstanceOf(DummyException.class,
-				subject.ifSuccessful(throwingConsumer(DummyException::new))
-						.getCause());
+		doThrow(IOException.class).when(mock).accept(1);
+		assertInstanceOf(IOException.class,
+				subject.ifSuccessful(mock).getCause());
+		verify(mock, times(2)).accept(1);
 	}
 
 	@Test
@@ -87,21 +96,25 @@ class SuccessTest {
 	}
 
 	@Test
-	void mapTest() {
+	void mapTest() throws Exception {
 		final Try<Integer> subject = new Success<>(1);
-
 		assertThrows(NullPointerException.class, () -> subject.map(null));
 
-		assertEquals(2.0, assertSupplierDoesNotThrow(
-				subject.map(i -> i * 2.0)::orElseThrow));
+		final ThrowingFunction<Integer, Double> mock = throwingFunction();
+		when(mock.apply(1)).thenReturn(2.0);
+		assertEquals(2.0, assertDoesSupply(subject.map(mock)::orElseThrow));
+		verify(mock).apply(1);
 
-		assertInstanceOf(DummyException.class,
-				subject.map(throwingFunction(DummyException::new)).getCause());
+		doThrow(IOException.class).when(mock).apply(1);
+		assertInstanceOf(IOException.class, subject.map(mock).getCause());
+		verify(mock, times(2)).apply(1);
 	}
 
 	@Test
 	void orElseGetTest() {
-		assertEquals(1, new Success<>(1).orElseGet(() -> 0));
+		final Supplier<Integer> mock = supplier();
+		assertEquals(1, new Success<>(1).orElseGet(mock));
+		verifyZeroInteractions(mock);
 	}
 
 	@Test
@@ -111,23 +124,23 @@ class SuccessTest {
 
 	@Test
 	void orElseThrowAnyTest() {
-		assertEquals(1, new Success<>(1).orElseThrow(DummyException::new));
+		final Function<Exception, IOException> mock = function();
+		assertEquals(1, new Success<>(1).orElseThrow(mock));
+		verifyZeroInteractions(mock);
 	}
 
 	@Test
 	void orElseThrowTest() {
-		assertEquals(1, new Success<>(1).orElseThrow());
+		assertEquals(1.0, assertDoesSupply(new Success<>(1.0)::orElseThrow));
 	}
 
 	@Test
 	void recoverTest() {
 		final Try<Integer> subject = new Success<>(1);
-
 		assertThrows(NullPointerException.class, () -> subject.recover(null));
 
-		assertEquals(1, subject.recover(e -> null).orElseThrow());
-
-		assertEquals(1, subject.recover(throwingFunction(DummyException::new))
-				.orElseThrow());
+		final ThrowingFunction<Exception, Integer> mock = throwingFunction();
+		assertEquals(1, subject.recover(mock).orElseThrow());
+		verifyZeroInteractions(mock);
 	}
 }
