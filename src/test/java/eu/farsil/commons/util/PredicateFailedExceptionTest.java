@@ -47,6 +47,8 @@ class PredicateFailedExceptionTest {
 			oos.writeObject(new PredicateFailedException(value));
 		} catch (final IOException e) {
 			fail("Serialization was unsuccessful", e);
+			// makes sure the test ends even if -ea flag is missing
+			return;
 		}
 
 		// deserialize the exception from the bytes
@@ -57,7 +59,6 @@ class PredicateFailedExceptionTest {
 			ex = (PredicateFailedException) ois.readObject();
 		} catch (final IOException | ClassNotFoundException e) {
 			fail("Deserialization was unsuccessful", e);
-			// makes sure the test ends even if -ea flag is missing
 			return;
 		}
 
