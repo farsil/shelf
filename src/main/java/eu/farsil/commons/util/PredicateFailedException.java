@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @see java.util.function.Predicate
  * @see eu.farsil.commons.function.ThrowingPredicate
  */
-public class PredicateFailedException extends RuntimeException {
+public final class PredicateFailedException extends RuntimeException {
 	/**
 	 * Required by {@code java.lang.Serializable}.
 	 */
