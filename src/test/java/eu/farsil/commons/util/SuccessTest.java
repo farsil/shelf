@@ -3,6 +3,7 @@ package eu.farsil.commons.util;
 import eu.farsil.commons.function.ThrowingConsumer;
 import eu.farsil.commons.function.ThrowingFunction;
 import eu.farsil.commons.function.ThrowingPredicate;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -15,8 +16,10 @@ import static eu.farsil.commons.test.MoreAssertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@DisplayName("Attempt successful test")
 class SuccessTest {
 	@Test
+	@DisplayName("filter() test")
 	void filterTest() throws Exception {
 		final Try<Double> subject = new Success<>(1.0);
 		assertThrows(NullPointerException.class, () -> subject.filter(null));
@@ -38,6 +41,7 @@ class SuccessTest {
 	}
 
 	@Test
+	@DisplayName("flatMap() test")
 	void flatMapTest() throws Exception {
 		final Try<Integer> subject = new Success<>(1);
 		assertThrows(NullPointerException.class, () -> subject.flatMap(null));
@@ -58,6 +62,7 @@ class SuccessTest {
 	}
 
 	@Test
+	@DisplayName("flatRecover() test")
 	void flatRecoverTest() {
 		final Try<Double> subject = new Success<>(1.0);
 		assertThrows(NullPointerException.class,
@@ -71,11 +76,13 @@ class SuccessTest {
 	}
 
 	@Test
+	@DisplayName("getCause() test")
 	void getCauseTest() {
 		assertNull(new Success<>(1).getCause());
 	}
 
 	@Test
+	@DisplayName("ifSuccessful() test")
 	void ifSuccessfulTest() throws Exception {
 		final Try<Integer> subject = new Success<>(1);
 		assertThrows(NullPointerException.class,
@@ -92,11 +99,13 @@ class SuccessTest {
 	}
 
 	@Test
+	@DisplayName("isSuccessful() test")
 	void isSuccessfulTest() {
 		assertTrue(new Success<>(1).isSuccessful());
 	}
 
 	@Test
+	@DisplayName("map() test")
 	void mapTest() throws Exception {
 		final Try<Integer> subject = new Success<>(1);
 		assertThrows(NullPointerException.class, () -> subject.map(null));
@@ -112,6 +121,7 @@ class SuccessTest {
 	}
 
 	@Test
+	@DisplayName("orElseGet() test")
 	void orElseGetTest() {
 		final Supplier<Integer> mock = supplier();
 		assertEquals(1, new Success<>(1).orElseGet(mock));
@@ -119,11 +129,13 @@ class SuccessTest {
 	}
 
 	@Test
+	@DisplayName("orElse() test")
 	void orElseTest() {
 		assertEquals(1, new Success<>(1).orElse(0));
 	}
 
 	@Test
+	@DisplayName("orElseThrow(Function) test")
 	void orElseThrowAnyTest() {
 		final Function<Exception, IOException> mock = function();
 		assertEquals(1,
@@ -132,11 +144,13 @@ class SuccessTest {
 	}
 
 	@Test
+	@DisplayName("orElseThrow() test")
 	void orElseThrowTest() {
 		assertEquals(1.0, assertDoesSupply(new Success<>(1.0)::orElseThrow));
 	}
 
 	@Test
+	@DisplayName("recover() test")
 	void recoverTest() {
 		final Try<Double> subject = new Success<>(1.0);
 		assertThrows(NullPointerException.class, () -> subject.recover(null));

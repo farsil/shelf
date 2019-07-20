@@ -1,6 +1,7 @@
 package eu.farsil.commons.util;
 
 import eu.farsil.commons.function.ThrowingSupplier;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -12,8 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+@DisplayName("Try creation test")
 class TryTest {
 	@Test
+	@DisplayName("get() test")
 	void getTest() throws Exception {
 		assertThrows(NullPointerException.class, () -> Try.get(null));
 

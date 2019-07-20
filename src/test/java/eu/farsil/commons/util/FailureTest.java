@@ -3,6 +3,7 @@ package eu.farsil.commons.util;
 import eu.farsil.commons.function.ThrowingConsumer;
 import eu.farsil.commons.function.ThrowingFunction;
 import eu.farsil.commons.function.ThrowingPredicate;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -14,8 +15,10 @@ import static eu.farsil.commons.test.MoreAssertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@DisplayName("Attempt failed test")
 class FailureTest {
 	@Test
+	@DisplayName("filter() test")
 	void filterTest() {
 		final Try<Integer> subject = new Failure<>(new FailureTestException());
 		assertThrows(NullPointerException.class, () -> subject.filter(null));
@@ -27,6 +30,7 @@ class FailureTest {
 	}
 
 	@Test
+	@DisplayName("flatMap() test")
 	void flatMapTest() {
 		final Try<Integer> subject = new Failure<>(new FailureTestException());
 		assertThrows(NullPointerException.class, () -> subject.flatMap(null));
@@ -38,6 +42,7 @@ class FailureTest {
 	}
 
 	@Test
+	@DisplayName("flatRecover() test")
 	void flatRecoverTest() throws Exception {
 		final Exception ex = new FailureTestException();
 		final Try<Integer> subject = new Failure<>(ex);
@@ -62,6 +67,7 @@ class FailureTest {
 	}
 
 	@Test
+	@DisplayName("getCause() test")
 	void getCauseTest() {
 		final Exception ex = new FailureTestException();
 		final Try<Integer> subject = new Failure<>(ex);
@@ -69,6 +75,7 @@ class FailureTest {
 	}
 
 	@Test
+	@DisplayName("ifSuccessful() test")
 	void ifSuccessfulTest() {
 		final Try<Integer> subject = new Failure<>(new FailureTestException());
 		assertThrows(NullPointerException.class,
@@ -81,11 +88,13 @@ class FailureTest {
 	}
 
 	@Test
+	@DisplayName("isSuccessful() test")
 	void isSuccessfulTest() {
 		assertFalse(new Failure<>(new FailureTestException()).isSuccessful());
 	}
 
 	@Test
+	@DisplayName("map() test")
 	void mapTest() {
 		final Try<Integer> subject = new Failure<>(new FailureTestException());
 		assertThrows(NullPointerException.class, () -> subject.map(null));
@@ -97,6 +106,7 @@ class FailureTest {
 	}
 
 	@Test
+	@DisplayName("orElseGet() test")
 	void orElseGetTest() {
 		final Supplier<Integer> mock = supplier();
 		when(mock.get()).thenReturn(0);
@@ -106,11 +116,13 @@ class FailureTest {
 	}
 
 	@Test
+	@DisplayName("orElse() test")
 	void orElseTest() {
 		assertEquals(0, new Failure<>(new FailureTestException()).orElse(0));
 	}
 
 	@Test
+	@DisplayName("orElseThrow(Function) test")
 	void orElseThrowAnyTest() {
 		final Exception ex = new FailureTestException();
 		final Function<Exception, IOException> mock = function();
@@ -121,12 +133,14 @@ class FailureTest {
 	}
 
 	@Test
+	@DisplayName("orElseThrow() test")
 	void orElseThrowTest() {
 		assertThrows(AttemptFailedException.class,
 				new Failure<>(new FailureTestException())::orElseThrow);
 	}
 
 	@Test
+	@DisplayName("recover() test")
 	void recoverTest() throws Exception {
 		final Exception ex = new FailureTestException();
 		final Try<Integer> subject = new Failure<>(ex);
@@ -142,6 +156,11 @@ class FailureTest {
 		verify(mock, times(2)).apply(ex);
 	}
 
+	/**
+	 * A tag exception for the tests.
+	 *
+	 * @author Marco Buzzanca
+	 */
 	private static class FailureTestException extends RuntimeException {
 	}
 }
