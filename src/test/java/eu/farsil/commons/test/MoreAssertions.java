@@ -2,9 +2,9 @@ package eu.farsil.commons.test;
 
 import eu.farsil.commons.function.ThrowingRunnable;
 import eu.farsil.commons.function.ThrowingSupplier;
+import eu.farsil.commons.util.Try;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * More assertions to be used alongside
@@ -25,7 +25,7 @@ public class MoreAssertions {
 	 * throwing exceptions. Useful in circumstances when
 	 * {@code assertDoesNotThrow()} is ambiguous.
 	 *
-	 * @param runnable the supplier.
+	 * @param runnable the runnable.
 	 */
 	public static void assertDoesRun(final ThrowingRunnable runnable) {
 		assertDoesNotThrow(runnable::run);
@@ -55,9 +55,49 @@ public class MoreAssertions {
 	public static <T> T assertInstanceOf(final Class<T> expectedClass,
 			final Object object) {
 		if (!expectedClass.isInstance(object)) {
-			fail(String.format("Unexpected instance type ==> expected: <%s> " +
-					"but was: <%s>", expectedClass, object.getClass()));
+			fail("Unexpected instance type ==> expected: <%s> " +
+					"but was: <%s>", expectedClass, object.getClass());
 		}
 		return expectedClass.cast(object);
+	}
+
+	/**
+	 * Asserts that the supplied attempt is successful.
+	 *
+	 * @param attempt the attempt.
+	 * @param <T> the computed result type.
+	 * @return the computed result of the attempt.
+	 */
+	public static <T> T assertSuccessful(final Try<T> attempt) {
+		if (!attempt.isSuccessful()) {
+			fail("Attempt is not successful => expected a success, but " +
+							"was a failure with cause <%s>",
+					attempt.getCause().getClass());
+		}
+		return attempt.orElseThrow();
+	}
+
+	/**
+	 * Asserts that the supplied attempt is unsuccessful.
+	 *
+	 * @param attempt the attempt.
+	 * @return the cause of the failure.
+	 */
+	public static Exception assertUnsuccessful(final Try<?> attempt) {
+		if (attempt.isSuccessful()) {
+			fail("Attempt is successful => expected a failure, but was a " +
+					"success with computed value <%s>", attempt.orElseThrow());
+		}
+		return attempt.getCause();
+	}
+
+	/**
+	 * Fails with a formatted message.
+	 *
+	 * @param format message format.
+	 * @param args format arguments.
+	 */
+	private static void fail(final String format, Object... args) {
+		org.junit.jupiter.api.Assertions.fail(String.format(format, args));
 	}
 }
