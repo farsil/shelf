@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Attempt failed test.
+ * Failed attempt tests.
  *
  * @author Marco Buzzanca
  */
@@ -182,5 +182,9 @@ class FailureTest {
 	 * @author Marco Buzzanca
 	 */
 	private static class FailureTestException extends RuntimeException {
+		/**
+		 * Required by {@code java.lang.Serializable}.
+		 */
+		private static final long serialVersionUID = 3887642717116774331L;
 	}
 }

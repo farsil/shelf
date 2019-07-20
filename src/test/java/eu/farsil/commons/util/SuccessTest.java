@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Attempt successful test.
+ * Successful attempt tests.
  *
  * @author Marco Buzzanca
  */

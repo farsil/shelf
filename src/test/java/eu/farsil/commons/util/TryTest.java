@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 /**
- * Attempt creation test.
+ * Attempt creation tests.
  *
  * @author Marco Buzzanca
  */
