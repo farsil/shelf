@@ -1,4 +1,4 @@
-package eu.farsil.commons.function;
+package eu.farsil.shelf.function;
 
 /**
  * Represents an operation that accepts a single input argument and returns no

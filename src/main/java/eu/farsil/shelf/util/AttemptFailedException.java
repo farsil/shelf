@@ -1,4 +1,4 @@
-package eu.farsil.commons.util;
+package eu.farsil.shelf.util;
 
 import java.util.Objects;
 

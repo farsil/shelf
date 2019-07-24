@@ -1,4 +1,4 @@
-package eu.farsil.commons.util;
+package eu.farsil.shelf.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

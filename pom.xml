@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>eu.farsil</groupId>
-	<artifactId>commons</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<groupId>eu.farsil.shelf</groupId>
+	<artifactId>shelf</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
 
 	<properties>
 		<!-- test dependencies -->
@@ -14,9 +14,9 @@
 		<mockito.version>3.0.0</mockito.version>
 
 		<!-- configuration -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.surefire.version>2.22.2</maven.surefire.version>
 	</properties>
 

@@ -1,9 +1,9 @@
-package eu.farsil.commons.util;
+package eu.farsil.shelf.util;
 
-import eu.farsil.commons.function.ThrowingConsumer;
-import eu.farsil.commons.function.ThrowingFunction;
-import eu.farsil.commons.function.ThrowingPredicate;
-import eu.farsil.commons.function.ThrowingSupplier;
+import eu.farsil.shelf.function.ThrowingConsumer;
+import eu.farsil.shelf.function.ThrowingFunction;
+import eu.farsil.shelf.function.ThrowingPredicate;
+import eu.farsil.shelf.function.ThrowingSupplier;
 
 import java.util.Objects;
 import java.util.function.Function;

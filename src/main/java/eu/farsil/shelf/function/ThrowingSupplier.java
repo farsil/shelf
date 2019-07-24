@@ -1,4 +1,4 @@
-package eu.farsil.commons.function;
+package eu.farsil.shelf.function;
 
 /**
  * Represents a supplier of results which may throw an exception.

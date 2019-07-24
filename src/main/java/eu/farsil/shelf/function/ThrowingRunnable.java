@@ -1,4 +1,4 @@
-package eu.farsil.commons.function;
+package eu.farsil.shelf.function;
 
 /**
  * Represents an action which may throw an exception.

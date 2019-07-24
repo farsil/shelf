@@ -1,9 +1,9 @@
-package eu.farsil.commons.mock;
+package eu.farsil.shelf.mock;
 
-import eu.farsil.commons.function.ThrowingConsumer;
-import eu.farsil.commons.function.ThrowingFunction;
-import eu.farsil.commons.function.ThrowingPredicate;
-import eu.farsil.commons.function.ThrowingSupplier;
+import eu.farsil.shelf.function.ThrowingConsumer;
+import eu.farsil.shelf.function.ThrowingFunction;
+import eu.farsil.shelf.function.ThrowingPredicate;
+import eu.farsil.shelf.function.ThrowingSupplier;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -12,7 +12,7 @@ import static org.mockito.Mockito.mock;
 
 /**
  * Returns mock instances of the throwing functional interfaces of package
- * {@code eu.farsil.commons.function} and {@code java.util.function} that can
+ * {@code eu.farsil.shelf.function} and {@code java.util.function} that can
  * be verified with {@code org.mockito.Mockito.verify()}.
  * <p/>
  * This class is used to reduce boilerplate code that involves annotating
@@ -53,7 +53,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code eu.farsil.commons.function.ThrowingConsumer}.
+	 * Returns a mock {@code eu.farsil.shelf.function.ThrowingConsumer}.
 	 *
 	 * @param <T> the type of the input to the operation.
 	 * @return the mock consumer.
@@ -64,7 +64,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code eu.farsil.commons.function.ThrowingFunction}.
+	 * Returns a mock {@code eu.farsil.shelf.function.ThrowingFunction}.
 	 *
 	 * @param <T> the type of the input to the function.
 	 * @param <R> the type of the result of the function.
@@ -76,7 +76,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code eu.farsil.commons.function.ThrowingConsumer}.
+	 * Returns a mock {@code eu.farsil.shelf.function.ThrowingConsumer}.
 	 *
 	 * @param <T> the type of the input to the predicate.
 	 * @return the mock predicate.
@@ -87,7 +87,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code eu.farsil.commons.function.ThrowingSupplier}.
+	 * Returns a mock {@code eu.farsil.shelf.function.ThrowingSupplier}.
 	 *
 	 * @param <T> the type of results supplied by this supplier
 	 * @return the mock supplier.

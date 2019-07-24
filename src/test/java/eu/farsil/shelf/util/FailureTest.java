@@ -1,8 +1,8 @@
-package eu.farsil.commons.util;
+package eu.farsil.shelf.util;
 
-import eu.farsil.commons.function.ThrowingConsumer;
-import eu.farsil.commons.function.ThrowingFunction;
-import eu.farsil.commons.function.ThrowingPredicate;
+import eu.farsil.shelf.function.ThrowingConsumer;
+import eu.farsil.shelf.function.ThrowingFunction;
+import eu.farsil.shelf.function.ThrowingPredicate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static eu.farsil.commons.mock.Functions.*;
-import static eu.farsil.commons.test.MoreAssertions.*;
+import static eu.farsil.shelf.mock.Functions.*;
+import static eu.farsil.shelf.test.MoreAssertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

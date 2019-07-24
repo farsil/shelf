@@ -1,4 +1,4 @@
-package eu.farsil.commons.function;
+package eu.farsil.shelf.function;
 
 /**
  * Represents a predicate (boolean-valued function) of one argument which may

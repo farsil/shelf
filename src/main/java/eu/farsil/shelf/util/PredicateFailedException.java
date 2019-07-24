@@ -1,4 +1,4 @@
-package eu.farsil.commons.util;
+package eu.farsil.shelf.util;
 
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Marco Buzzanca
  * @see java.util.function.Predicate
- * @see eu.farsil.commons.function.ThrowingPredicate
+ * @see eu.farsil.shelf.function.ThrowingPredicate
  */
 public final class PredicateFailedException extends RuntimeException {
 	/**

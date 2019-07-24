@@ -1,13 +1,13 @@
-package eu.farsil.commons.util;
+package eu.farsil.shelf.util;
 
-import eu.farsil.commons.function.ThrowingSupplier;
+import eu.farsil.shelf.function.ThrowingSupplier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static eu.farsil.commons.mock.Functions.throwingSupplier;
-import static eu.farsil.commons.test.MoreAssertions.*;
+import static eu.farsil.shelf.mock.Functions.throwingSupplier;
+import static eu.farsil.shelf.test.MoreAssertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;

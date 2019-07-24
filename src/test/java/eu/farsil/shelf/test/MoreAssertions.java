@@ -1,8 +1,8 @@
-package eu.farsil.commons.test;
+package eu.farsil.shelf.test;
 
-import eu.farsil.commons.function.ThrowingRunnable;
-import eu.farsil.commons.function.ThrowingSupplier;
-import eu.farsil.commons.util.Try;
+import eu.farsil.shelf.function.ThrowingRunnable;
+import eu.farsil.shelf.function.ThrowingSupplier;
+import eu.farsil.shelf.util.Try;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
