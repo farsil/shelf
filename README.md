@@ -1,5 +1,6 @@
 # Shelf  
 [![Build Status](https://travis-ci.com/farsil/shelf.svg?branch=master)](https://travis-ci.com/farsil/shelf)
+[![codecov](https://codecov.io/gh/farsil/shelf/branch/master/graph/badge.svg)](https://codecov.io/gh/farsil/shelf)
 
 `shelf` is a java utility library which aims to complement modern versions of 
 the java standard libraries. It features easy-to-use classes that either 
