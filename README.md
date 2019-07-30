@@ -1,6 +1,7 @@
 # Shelf  
 [![Build Status](https://travis-ci.com/farsil/shelf.svg?branch=master)](https://travis-ci.com/farsil/shelf)
 [![codecov](https://codecov.io/gh/farsil/shelf/branch/master/graph/badge.svg)](https://codecov.io/gh/farsil/shelf)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffarsil%2Fshelf.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffarsil%2Fshelf?ref=badge_shield)
 
 `shelf` is a java utility library which aims to complement modern versions of 
 the java standard libraries. It features easy-to-use classes that either 
@@ -34,3 +35,7 @@ The documentation for this library is published on
 [javadoc.io](https://www.javadoc.io/doc/eu.farsil.commons/commons).
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffarsil%2Fshelf.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffarsil%2Fshelf?ref=badge_large)
