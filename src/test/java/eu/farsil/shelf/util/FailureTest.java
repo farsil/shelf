@@ -102,9 +102,35 @@ class FailureTest {
 	}
 
 	@Test
+	void ifUnsuccessfulTest() throws Exception {
+		// null consumer
+		final Exception ex = new FailureTestException();
+		final Try<Integer> subject = new Failure<>(ex);
+		assertThrows(NullPointerException.class,
+				() -> subject.ifUnsuccessful(null));
+
+		// dummy consumer
+		final ThrowingConsumer<Exception> mock = throwingConsumer();
+		assertEquals(ex, assertNotSuccessful(subject.ifUnsuccessful(mock)));
+		verify(mock).accept(ex);
+
+		// throwing consumer
+		doThrow(IOException.class).when(mock).accept(ex);
+		assertInstanceOf(IOException.class,
+				assertNotSuccessful(subject.ifUnsuccessful(mock)));
+		verify(mock, times(2)).accept(ex);
+	}
+
+	@Test
 	@DisplayName("isSuccessful() test")
 	void isSuccessfulTest() {
 		assertFalse(new Failure<>(new FailureTestException()).isSuccessful());
+	}
+
+	@Test
+	@DisplayName("isUnsuccessful() test")
+	void isUnsuccessfulTest() {
+		assertTrue(new Failure<>(new FailureTestException()).isUnsuccessful());
 	}
 
 	@Test
@@ -124,10 +150,14 @@ class FailureTest {
 	@Test
 	@DisplayName("orElseGet() test")
 	void orElseGetTest() {
+		// null supplier
+		final Try<Integer> subject = new Failure<>(new FailureTestException());
+		assertThrows(NullPointerException.class, () -> subject.orElseGet(null));
+
+		// constant supplier
 		final Supplier<Integer> mock = supplier();
 		when(mock.get()).thenReturn(0);
-		assertEquals(0,
-				new Failure<>(new FailureTestException()).orElseGet(mock));
+		assertEquals(0, subject.orElseGet(mock));
 		verify(mock).get();
 	}
 
@@ -140,11 +170,16 @@ class FailureTest {
 	@Test
 	@DisplayName("orElseThrow(Function) test")
 	void orElseThrowAnyTest() {
+		// null function
 		final Exception ex = new FailureTestException();
+		final Try<Integer> subject = new Failure<>(ex);
+		assertThrows(NullPointerException.class,
+				() -> subject.orElseThrow(null));
+
+		// constant function
 		final Function<Exception, IOException> mock = function();
 		when(mock.apply(ex)).thenReturn(new IOException());
-		assertThrows(IOException.class,
-				() -> new Failure<>(ex).orElseThrow(mock));
+		assertThrows(IOException.class, () -> subject.orElseThrow(mock));
 		verify(mock).apply(ex);
 	}
 

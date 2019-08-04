@@ -118,9 +118,30 @@ class SuccessTest {
 	}
 
 	@Test
+	@DisplayName("ifUnsuccessful() test")
+	void ifUnsuccessfulTest() {
+		// null consumer
+		final Try<Integer> subject = new Success<>(1);
+		assertThrows(NullPointerException.class,
+				() -> subject.ifUnsuccessful(null));
+
+		// throwing consumer
+		final ThrowingConsumer<Exception> mock = throwingConsumer();
+		assertEquals(1,
+				assertSuccessful(new Success<>(1).ifUnsuccessful(mock)));
+		verifyZeroInteractions(mock);
+	}
+
+	@Test
 	@DisplayName("isSuccessful() test")
 	void isSuccessfulTest() {
 		assertTrue(new Success<>(1).isSuccessful());
+	}
+
+	@Test
+	@DisplayName("isUnsuccessful() test")
+	void isUnsuccessfulTest() {
+		assertFalse(new Success<>(1).isUnsuccessful());
 	}
 
 	@Test
@@ -146,8 +167,13 @@ class SuccessTest {
 	@Test
 	@DisplayName("orElseGet() test")
 	void orElseGetTest() {
+		// null supplier
+		final Try<Integer> subject = new Success<>(1);
+		assertThrows(NullPointerException.class, () -> subject.orElseGet(null));
+
+		// dummy supplier
 		final Supplier<Integer> mock = supplier();
-		assertEquals(1, new Success<>(1).orElseGet(mock));
+		assertEquals(1, subject.orElseGet(mock));
 		verifyZeroInteractions(mock);
 	}
 
@@ -160,9 +186,14 @@ class SuccessTest {
 	@Test
 	@DisplayName("orElseThrow(Function) test")
 	void orElseThrowAnyTest() {
+		// null function
+		final Try<Integer> subject = new Success<>(1);
+		assertThrows(NullPointerException.class,
+				() -> subject.orElseThrow(null));
+
+		// dummy function
 		final Function<Exception, IOException> mock = function();
-		assertEquals(1,
-				assertDoesSupply(() -> new Success<>(1).orElseThrow(mock)));
+		assertEquals(1, assertDoesSupply(() -> subject.orElseThrow(mock)));
 		verifyZeroInteractions(mock);
 	}
 

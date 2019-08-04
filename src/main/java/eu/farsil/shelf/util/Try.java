@@ -69,9 +69,9 @@ public interface Try<T> {
 	}
 
 	/**
-	 * Converts this instance to a failure if the computed value does not match
+	 * Returns a failure if the computed value does not match
 	 * the predicate, or if the predicate throws an exception, otherwise
-	 * returns a success holding the matching value.
+	 * returns a success holding the value.
 	 *
 	 * @param predicate the predicate to match the result against.
 	 * @return a failure if the result does not match the predicate or the
@@ -139,12 +139,34 @@ public interface Try<T> {
 	Try<T> ifSuccessful(final ThrowingConsumer<? super T> action);
 
 	/**
+	 * Performs the given action only if the computation was unsuccessful.
+	 * <p/>
+	 * If the action throws an exception it returns a failure, otherwise it
+	 * returns this instance regardless if it is a success or a failure.
+	 *
+	 * @param action the action to perform. The cause of the failure is passed
+	 * as a parameter.
+	 * @return this instance, or a failure if the action throws.
+	 * @throws NullPointerException if the action is {@code null}.
+	 * @see ThrowingConsumer
+	 */
+	Try<T> ifUnsuccessful(final ThrowingConsumer<? super Exception> action);
+
+	/**
 	 * Returns whether the computation was successful.
 	 *
 	 * @return {@code true} if the computation was successful, {@code false}
 	 * otherwise.
 	 */
 	boolean isSuccessful();
+
+	/**
+	 * Returns whether the computation was unsuccessful.
+	 *
+	 * @return {@code true} if the computation was unsuccessful, {@code false}
+	 * otherwise.
+	 */
+	boolean isUnsuccessful();
 
 	/**
 	 * Applies the given mapping function to the computed value if the
@@ -166,6 +188,7 @@ public interface Try<T> {
 	 * Returns the computed value if the computation was successful,
 	 * otherwise returns the specified value.
 	 *
+	 * @param value the value to return if the computation was unsuccessful.
 	 * @return the computed value if the computation was successful,
 	 * the specified value otherwise.
 	 */
@@ -175,6 +198,8 @@ public interface Try<T> {
 	 * Returns the computed value if the computation was successful,
 	 * otherwise obtains a value from the given supplier.
 	 *
+	 * @param supplier the supplier of the value to return if the computation
+	 * was unsuccessful.
 	 * @return the computed value if the computation was successful,
 	 * a value obtained from the given supplier otherwise.
 	 * @throws NullPointerException if the supplier is {@code null}.

@@ -69,8 +69,25 @@ class Failure<T> implements Try<T> {
 	}
 
 	@Override
+	public Try<T> ifUnsuccessful(
+			final ThrowingConsumer<? super Exception> action) {
+		Objects.requireNonNull(action);
+		try {
+			action.accept(cause);
+		} catch (final Exception e) {
+			return new Failure<>(e);
+		}
+		return this;
+	}
+
+	@Override
 	public boolean isSuccessful() {
 		return false;
+	}
+
+	@Override
+	public boolean isUnsuccessful() {
+		return true;
 	}
 
 	@Override

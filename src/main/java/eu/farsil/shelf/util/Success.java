@@ -78,8 +78,20 @@ class Success<T> implements Try<T> {
 	}
 
 	@Override
+	public Try<T> ifUnsuccessful(
+			final ThrowingConsumer<? super Exception> action) {
+		Objects.requireNonNull(action);
+		return this;
+	}
+
+	@Override
 	public boolean isSuccessful() {
 		return true;
+	}
+
+	@Override
+	public boolean isUnsuccessful() {
+		return false;
 	}
 
 	@Override
