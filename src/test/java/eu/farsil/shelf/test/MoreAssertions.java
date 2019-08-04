@@ -83,7 +83,7 @@ public class MoreAssertions {
 	 * @param attempt the attempt.
 	 * @return the cause of the failure.
 	 */
-	public static Exception assertUnsuccessful(final Try<?> attempt) {
+	public static Exception assertNotSuccessful(final Try<?> attempt) {
 		if (attempt.isSuccessful()) {
 			fail("Attempt is successful => expected a failure, but was a " +
 					"success with computed value <%s>", attempt.orElseThrow());

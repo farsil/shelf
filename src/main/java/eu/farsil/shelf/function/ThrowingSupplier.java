@@ -1,5 +1,9 @@
 package eu.farsil.shelf.function;
 
+import org.apiguardian.api.API;
+
+import static org.apiguardian.api.API.Status.MAINTAINED;
+
 /**
  * Represents a supplier of results which may throw an exception.
  *
@@ -8,6 +12,7 @@ package eu.farsil.shelf.function;
  * @see java.util.function.Supplier
  */
 @FunctionalInterface
+@API(status = MAINTAINED, since = "0.1.0")
 public interface ThrowingSupplier<T> {
 	/**
 	 * Gets a result.

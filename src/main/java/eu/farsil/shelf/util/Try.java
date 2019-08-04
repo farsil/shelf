@@ -4,10 +4,13 @@ import eu.farsil.shelf.function.ThrowingConsumer;
 import eu.farsil.shelf.function.ThrowingFunction;
 import eu.farsil.shelf.function.ThrowingPredicate;
 import eu.farsil.shelf.function.ThrowingSupplier;
+import org.apiguardian.api.API;
 
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import static org.apiguardian.api.API.Status.EXPERIMENTAL;
 
 /**
  * This class provides an abstraction of a computation attempt.
@@ -40,6 +43,7 @@ import java.util.function.Supplier;
  * @author Marco Buzzanca
  * @see java.util.Optional
  */
+@API(status = EXPERIMENTAL, since = "0.1.0")
 public interface Try<T> {
 	/**
 	 * Attempts to perform a computation that returns a value, which is

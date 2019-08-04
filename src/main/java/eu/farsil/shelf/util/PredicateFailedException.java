@@ -1,6 +1,10 @@
 package eu.farsil.shelf.util;
 
+import org.apiguardian.api.API;
+
 import java.io.Serializable;
+
+import static org.apiguardian.api.API.Status.EXPERIMENTAL;
 
 /**
  * Exception that is intended to be thrown when a {@code Predicate} or {@code
@@ -10,6 +14,7 @@ import java.io.Serializable;
  * @see java.util.function.Predicate
  * @see eu.farsil.shelf.function.ThrowingPredicate
  */
+@API(status = EXPERIMENTAL, since = "0.1.0")
 public class PredicateFailedException extends RuntimeException {
 	/**
 	 * Required by {@link Serializable}.

@@ -1,7 +1,11 @@
 package eu.farsil.shelf.util;
 
+import org.apiguardian.api.API;
+
 import java.io.Serializable;
 import java.util.Objects;
+
+import static org.apiguardian.api.API.Status.MAINTAINED;
 
 /**
  * Exception that is thrown when the method {@code Try.orElseThrow()} is
@@ -9,6 +13,7 @@ import java.util.Objects;
  *
  * @author Marco Buzzanca
  */
+@API(status = MAINTAINED, since = "0.1.0")
 public class AttemptFailedException extends RuntimeException {
 	/**
 	 * Required by {@link Serializable}.

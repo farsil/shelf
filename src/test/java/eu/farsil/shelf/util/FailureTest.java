@@ -32,7 +32,7 @@ class FailureTest {
 		// dummy predicate, never gets called
 		final ThrowingPredicate<Integer> mock = throwingPredicate();
 		assertInstanceOf(FailureTestException.class,
-				assertUnsuccessful(subject.filter(mock)));
+				assertNotSuccessful(subject.filter(mock)));
 		verifyZeroInteractions(mock);
 	}
 
@@ -46,7 +46,7 @@ class FailureTest {
 		// dummy function, never gets called
 		final ThrowingFunction<Integer, Try<Double>> mock = throwingFunction();
 		assertInstanceOf(FailureTestException.class,
-				assertUnsuccessful(subject.flatMap(mock)));
+				assertNotSuccessful(subject.flatMap(mock)));
 		verifyZeroInteractions(mock);
 	}
 
@@ -69,13 +69,13 @@ class FailureTest {
 		// function that returns a failure
 		when(mock.apply(ex)).thenReturn(new Failure<>(new IOException()));
 		assertInstanceOf(IOException.class,
-				assertUnsuccessful(subject.flatRecover(mock)));
+				assertNotSuccessful(subject.flatRecover(mock)));
 		verify(mock, times(2)).apply(ex);
 
 		// function that throws
 		doThrow(IllegalStateException.class).when(mock).apply(ex);
 		assertInstanceOf(IllegalStateException.class,
-				assertUnsuccessful(subject.flatRecover(mock)));
+				assertNotSuccessful(subject.flatRecover(mock)));
 		verify(mock, times(3)).apply(ex);
 	}
 
@@ -97,7 +97,7 @@ class FailureTest {
 		// dummy consumer, never gets called
 		final ThrowingConsumer<Integer> mock = throwingConsumer();
 		assertInstanceOf(FailureTestException.class,
-				assertUnsuccessful(subject.ifSuccessful(mock)));
+				assertNotSuccessful(subject.ifSuccessful(mock)));
 		verifyZeroInteractions(mock);
 	}
 
@@ -117,7 +117,7 @@ class FailureTest {
 		// dummy function, never gets called
 		final ThrowingFunction<Integer, Double> mock = throwingFunction();
 		assertInstanceOf(FailureTestException.class,
-				assertUnsuccessful(subject.map(mock)));
+				assertNotSuccessful(subject.map(mock)));
 		verifyZeroInteractions(mock);
 	}
 
@@ -172,7 +172,7 @@ class FailureTest {
 		// throwing function
 		doThrow(IOException.class).when(mock).apply(ex);
 		assertInstanceOf(IOException.class,
-				assertUnsuccessful(subject.recover(mock)));
+				assertNotSuccessful(subject.recover(mock)));
 		verify(mock, times(2)).apply(ex);
 	}
 

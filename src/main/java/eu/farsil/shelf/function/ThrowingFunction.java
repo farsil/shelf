@@ -1,5 +1,9 @@
 package eu.farsil.shelf.function;
 
+import org.apiguardian.api.API;
+
+import static org.apiguardian.api.API.Status.MAINTAINED;
+
 /**
  * Represents a function that accepts one argument and produces a result
  * which may throw an exception.
@@ -10,6 +14,7 @@ package eu.farsil.shelf.function;
  * @see java.util.function.Function
  */
 @FunctionalInterface
+@API(status = MAINTAINED, since = "0.1.0")
 public interface ThrowingFunction<T, R> {
 	/**
 	 * Applies this function to the given argument.

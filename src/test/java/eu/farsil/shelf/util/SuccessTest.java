@@ -39,14 +39,14 @@ class SuccessTest {
 		when(mock.test(1.0)).thenReturn(false);
 		final PredicateFailedException cause =
 				assertInstanceOf(PredicateFailedException.class,
-						assertUnsuccessful(subject.filter(mock)));
+						assertNotSuccessful(subject.filter(mock)));
 		assertEquals(1.0, cause.getValue());
 		verify(mock, times(2)).test(1.0);
 
 		// throwing predicate
 		doThrow(IllegalStateException.class).when(mock).test(1.0);
 		assertInstanceOf(IllegalStateException.class,
-				assertUnsuccessful(subject.filter(mock)));
+				assertNotSuccessful(subject.filter(mock)));
 		verify(mock, times(3)).test(1.0);
 	}
 
@@ -66,13 +66,13 @@ class SuccessTest {
 		// function that returns a failure
 		when(mock.apply(1)).thenReturn(new Failure<>(new IOException()));
 		assertInstanceOf(IOException.class,
-				assertUnsuccessful(subject.flatMap(mock)));
+				assertNotSuccessful(subject.flatMap(mock)));
 		verify(mock, times(2)).apply(1);
 
 		// function that throws
 		doThrow(IllegalStateException.class).when(mock).apply(1);
 		assertInstanceOf(IllegalStateException.class,
-				assertUnsuccessful(subject.flatMap(mock)));
+				assertNotSuccessful(subject.flatMap(mock)));
 		verify(mock, times(3)).apply(1);
 	}
 
@@ -113,7 +113,7 @@ class SuccessTest {
 		// throwing consumer
 		doThrow(IOException.class).when(mock).accept(1);
 		assertInstanceOf(IOException.class,
-				assertUnsuccessful(subject.ifSuccessful(mock)));
+				assertNotSuccessful(subject.ifSuccessful(mock)));
 		verify(mock, times(2)).accept(1);
 	}
 
@@ -139,7 +139,7 @@ class SuccessTest {
 		// throwing function
 		doThrow(IOException.class).when(mock).apply(1);
 		assertInstanceOf(IOException.class,
-				assertUnsuccessful(subject.map(mock)));
+				assertNotSuccessful(subject.map(mock)));
 		verify(mock, times(2)).apply(1);
 	}
 

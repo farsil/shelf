@@ -9,6 +9,9 @@
 	<version>0.1.0</version>
 
 	<properties>
+		<!-- dependencies -->
+		<apiguardian.version>1.1.0</apiguardian.version>
+
 		<!-- test dependencies -->
 		<junit.version>5.5.0</junit.version>
 		<mockito.version>3.0.0</mockito.version>
@@ -22,6 +25,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.apiguardian</groupId>
+			<artifactId>apiguardian-api</artifactId>
+			<version>${apiguardian.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
@@ -43,6 +51,16 @@
 	</dependencies>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<!-- override version, otherwise the default surefire does
+						 not pickup JUnit 5 tests -->
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven.surefire.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -64,15 +82,5 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<!-- override version, otherwise the default surefire does
-						 not pickup JUnit 5 tests -->
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven.surefire.version}</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 </project>

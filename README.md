@@ -26,8 +26,7 @@ dependency in your `pom.xml`.
 </dependency>
 ``` 
 `shelf` adheres to the guidelines provided by
-[semantic versioning](https://semver.org/). All non-major version changes are
- backwards-compatible.
+[semantic versioning](https://semver.org/).
  
 # Documentation
 The documentation for this library is published on

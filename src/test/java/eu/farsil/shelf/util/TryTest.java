@@ -33,7 +33,7 @@ class TryTest {
 
 		// failed attempt
 		doThrow(IOException.class).when(mock).get();
-		assertInstanceOf(IOException.class, assertUnsuccessful(Try.get(mock)));
+		assertInstanceOf(IOException.class, assertNotSuccessful(Try.get(mock)));
 		verify(mock, times(2)).get();
 	}
 }
