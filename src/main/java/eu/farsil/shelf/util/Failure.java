@@ -9,7 +9,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Implementation of {@code Try} that represents an unsuccessful attempt.
+ * Implementation of {@link Try} that represents an unsuccessful attempt.
  *
  * @param <T> the type of the result.
  * @author Marco Buzzanca
@@ -21,7 +21,7 @@ class Failure<T> implements Try<T> {
 	private final Exception cause;
 
 	/**
-	 * Builds a {@code Success} holding the cause of the failure.
+	 * Builds a {@link Failure} holding the cause of the failure.
 	 *
 	 * @param cause the cause of the failure.
 	 */

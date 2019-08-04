@@ -4,6 +4,7 @@ import eu.farsil.shelf.function.ThrowingConsumer;
 import eu.farsil.shelf.function.ThrowingFunction;
 import eu.farsil.shelf.function.ThrowingPredicate;
 import eu.farsil.shelf.function.ThrowingSupplier;
+import org.mockito.Mockito;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -12,12 +13,14 @@ import static org.mockito.Mockito.mock;
 
 /**
  * Returns mock instances of the throwing functional interfaces of package
- * {@code eu.farsil.shelf.function} and {@code java.util.function} that can
- * be verified with {@code org.mockito.Mockito.verify()}.
+ * {@link eu.farsil.shelf.function} and {@link java.util.function} that can
+ * be verified with the {@code verify()} method family of the {@link Mockito}
+ * class.
  * <p/>
  * This class is used to reduce boilerplate code that involves annotating
  * with {@code @SuppressWarnings} and casting to the appropriate functional
- * interface the instances obtained with {@code org.mockito.Mockito.mock()}.
+ * interface the instances obtained with {@link Mockito#mock(Class)
+ * Mockito.mock()}.
  *
  * @author Marco Buzzanca
  */
@@ -30,7 +33,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code java.util.Function}.
+	 * Returns a mock {@link Function}.
 	 *
 	 * @param <T> the type of the input to the function.
 	 * @param <R> the type of the result of the function.
@@ -42,7 +45,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code java.util.Supplier}.
+	 * Returns a mock {@link Supplier}.
 	 *
 	 * @param <T> the type of results supplied by this supplier.
 	 * @return the mock supplier.
@@ -53,7 +56,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code eu.farsil.shelf.function.ThrowingConsumer}.
+	 * Returns a mock {@link ThrowingConsumer}.
 	 *
 	 * @param <T> the type of the input to the operation.
 	 * @return the mock consumer.
@@ -64,7 +67,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code eu.farsil.shelf.function.ThrowingFunction}.
+	 * Returns a mock {@link ThrowingFunction}.
 	 *
 	 * @param <T> the type of the input to the function.
 	 * @param <R> the type of the result of the function.
@@ -76,7 +79,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code eu.farsil.shelf.function.ThrowingConsumer}.
+	 * Returns a mock {@link ThrowingConsumer}.
 	 *
 	 * @param <T> the type of the input to the predicate.
 	 * @return the mock predicate.
@@ -87,7 +90,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@code eu.farsil.shelf.function.ThrowingSupplier}.
+	 * Returns a mock {@link ThrowingSupplier}.
 	 *
 	 * @param <T> the type of results supplied by this supplier
 	 * @return the mock supplier.

@@ -9,7 +9,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Implementation of {@code Try} that represents a successful attempt.
+ * Implementation of {@link Try} that represents a successful attempt.
  *
  * @param <T> the type of the result.
  * @author Marco Buzzanca
@@ -21,7 +21,7 @@ class Success<T> implements Try<T> {
 	private final T value;
 
 	/**
-	 * Builds a {@code Success} holding the specified value.
+	 * Builds a {@link Success} holding the specified value.
 	 *
 	 * @param value the result value.
 	 */

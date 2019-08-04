@@ -7,6 +7,7 @@ import eu.farsil.shelf.function.ThrowingSupplier;
 import org.apiguardian.api.API;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -20,14 +21,13 @@ import static org.apiguardian.api.API.Status.EXPERIMENTAL;
  * successful state hold the computed value, while instances in a failed
  * state hold the cause of the failure.
  * <p/>
- * In its essence, {@code Try} is a generalization of the
- * {@code java.util.Optional} class which is able to handle any arbitrary
- * failure, while the {@code java.util.Optional} class is limited to handle
- * failures due to {@code null} values.
+ * In its essence, {@code Try} is a generalization of the {@link Optional}
+ * class which is able to handle any arbitrary failure, while the {@code
+ * Optional} class is limited to handle failures due to {@code null} values.
  * <p/>
- * The computation is performed by the static method {@code get()}, and this
- * class's fluent interface allows users to chain method calls handling
- * successful or failed operations:
+ * The computation is performed by the static method
+ * {@link #get(ThrowingSupplier) get()}, and this class's fluent interface
+ * allows users to chain method calls handling successful or failed operations:
  * <pre>{@code final int result = Try.get(() -> Integer.parseInt(someString))
  *      .recover(e -> (int)Double.parseDouble(someString))
  *      .map(Math::abs)
@@ -41,7 +41,7 @@ import static org.apiguardian.api.API.Status.EXPERIMENTAL;
  *
  * @param <T> the type of the result.
  * @author Marco Buzzanca
- * @see java.util.Optional
+ * @see Optional
  */
 @API(status = EXPERIMENTAL, since = "0.1.0")
 public interface Try<T> {
@@ -53,7 +53,7 @@ public interface Try<T> {
 	 *
 	 * @param supplier the computation that returns a value.
 	 * @param <T> the type of the result.
-	 * @return an instance of {@code Try}, which represents the outcome of
+	 * @return an instance of {@link Try}, which represents the outcome of
 	 * a computation that returns a value, in a successful or failed
 	 * state. The {@code Try} instance may further processed with its
 	 * @throws NullPointerException if the supplier is {@code null}.
@@ -89,7 +89,7 @@ public interface Try<T> {
 	 * exception, or if the computation was unsuccessful, it returns a failure.
 	 *
 	 * @param mapper the function to apply.
-	 * @param <V> the type of the returned {@code Try}.
+	 * @param <V> the type of the returned {@link Try}.
 	 * @return an instance of {@code Try} obtained by applying the given
 	 * function if the computation was successful, a failure otherwise.
 	 * @throws NullPointerException if the function is {@code null}.
@@ -106,7 +106,7 @@ public interface Try<T> {
 	 * exception, or if the computation was unsuccessful, it returns a failure.
 	 *
 	 * @param mapper the function to apply.
-	 * @return an instance of {@code Try} obtained by applying the given
+	 * @return an instance of {@link Try} obtained by applying the given
 	 * function if the computation was unsuccessful, a success otherwise.
 	 * @throws NullPointerException if the function is {@code null}.
 	 * @see ThrowingFunction
@@ -176,7 +176,7 @@ public interface Try<T> {
 	 * exception, or if the computation was unsuccessful, it returns a failure.
 	 *
 	 * @param mapper the function to apply.
-	 * @param <V> the type of the returned {@code Try}.
+	 * @param <V> the type of the returned {@link Try}.
 	 * @return a success obtained by applying the given function if
 	 * the computation was successful, a failure otherwise.
 	 * @throws NullPointerException if the function is {@code null}.
@@ -209,7 +209,7 @@ public interface Try<T> {
 
 	/**
 	 * Returns the computed value if the computation was successful,
-	 * otherwise throws an {@code AttemptFailedException} holding the cause
+	 * otherwise throws an {@link AttemptFailedException} holding the cause
 	 * of the failure.
 	 *
 	 * @return the computed value.

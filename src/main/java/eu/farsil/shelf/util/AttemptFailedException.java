@@ -8,8 +8,8 @@ import java.util.Objects;
 import static org.apiguardian.api.API.Status.MAINTAINED;
 
 /**
- * Exception that is thrown when the method {@code Try.orElseThrow()} is
- * invoked on a instance of {@code Try} in a failed state.
+ * Exception that is thrown when the method {@link Try#orElseThrow()} is
+ * invoked on a instance of {@link Try} in a failed state.
  *
  * @author Marco Buzzanca
  */

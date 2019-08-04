@@ -1,18 +1,20 @@
 package eu.farsil.shelf.util;
 
+import eu.farsil.shelf.function.ThrowingPredicate;
 import org.apiguardian.api.API;
 
 import java.io.Serializable;
+import java.util.function.Predicate;
 
 import static org.apiguardian.api.API.Status.EXPERIMENTAL;
 
 /**
- * Exception that is intended to be thrown when a {@code Predicate} or {@code
+ * Exception that is intended to be thrown when a {@link Predicate} or {@link
  * ThrowingPredicate} fails.
  *
  * @author Marco Buzzanca
- * @see java.util.function.Predicate
- * @see eu.farsil.shelf.function.ThrowingPredicate
+ * @see Predicate
+ * @see ThrowingPredicate
  */
 @API(status = EXPERIMENTAL, since = "0.1.0")
 public class PredicateFailedException extends RuntimeException {

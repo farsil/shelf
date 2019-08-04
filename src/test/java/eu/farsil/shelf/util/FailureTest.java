@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -218,7 +219,7 @@ class FailureTest {
 	 */
 	private static class FailureTestException extends RuntimeException {
 		/**
-		 * Required by {@code java.lang.Serializable}.
+		 * Required by {@link Serializable}.
 		 */
 		private static final long serialVersionUID = 3887642717116774331L;
 	}

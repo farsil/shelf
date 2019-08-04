@@ -3,12 +3,13 @@ package eu.farsil.shelf.test;
 import eu.farsil.shelf.function.ThrowingRunnable;
 import eu.farsil.shelf.function.ThrowingSupplier;
 import eu.farsil.shelf.util.Try;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
- * More assertions to be used alongside
- * {@code org.junit.jupiter.api.Assertions}.
+ * More assertions to be used alongside {@link Assertions}.
  *
  * @author Marco Buzzanca
  */
@@ -21,9 +22,10 @@ public class MoreAssertions {
 	}
 
 	/**
-	 * Asserts that supplied {@code ThrowingRunnable} does execute without
+	 * Asserts that supplied {@link ThrowingRunnable} does execute without
 	 * throwing exceptions. Useful in circumstances when
-	 * {@code assertDoesNotThrow()} is ambiguous.
+	 * {@link Assertions#assertDoesNotThrow(Executable) assertDoesNotThrow()}
+	 * is ambiguous.
 	 *
 	 * @param runnable the runnable.
 	 */
@@ -32,9 +34,10 @@ public class MoreAssertions {
 	}
 
 	/**
-	 * Asserts that supplied {@code ThrowingSupplier} does return a result
+	 * Asserts that supplied {@link ThrowingSupplier} does return a result
 	 * without throwing exceptions. Useful in circumstances when
-	 * {@code assertDoesNotThrow()} is ambiguous.
+	 * {@link Assertions#assertDoesNotThrow(org.junit.jupiter.api.function.ThrowingSupplier)
+	 * assertDoesNotThrow()} is ambiguous.
 	 *
 	 * @param supplier the supplier.
 	 * @param <T> the supplier result type.
@@ -62,6 +65,20 @@ public class MoreAssertions {
 	}
 
 	/**
+	 * Asserts that the supplied attempt is unsuccessful.
+	 *
+	 * @param attempt the attempt.
+	 * @return the cause of the failure.
+	 */
+	public static Exception assertNotSuccessful(final Try<?> attempt) {
+		if (attempt.isSuccessful()) {
+			fail("Attempt is successful => expected a failure, but was a " +
+					"success with computed value <%s>", attempt.orElseThrow());
+		}
+		return attempt.getCause();
+	}
+
+	/**
 	 * Asserts that the supplied attempt is successful.
 	 *
 	 * @param attempt the attempt.
@@ -78,26 +95,12 @@ public class MoreAssertions {
 	}
 
 	/**
-	 * Asserts that the supplied attempt is unsuccessful.
-	 *
-	 * @param attempt the attempt.
-	 * @return the cause of the failure.
-	 */
-	public static Exception assertNotSuccessful(final Try<?> attempt) {
-		if (attempt.isSuccessful()) {
-			fail("Attempt is successful => expected a failure, but was a " +
-					"success with computed value <%s>", attempt.orElseThrow());
-		}
-		return attempt.getCause();
-	}
-
-	/**
 	 * Fails with a formatted message.
 	 *
 	 * @param format message format.
 	 * @param args format arguments.
 	 */
 	private static void fail(final String format, Object... args) {
-		org.junit.jupiter.api.Assertions.fail(String.format(format, args));
+		Assertions.fail(String.format(format, args));
 	}
 }
