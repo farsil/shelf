@@ -27,12 +27,12 @@ class FailureTest {
 	@DisplayName("filter() test")
 	void filterTest() {
 		// null predicate
-		final Try<Integer> subject = new Failure<>(new FailureTestException());
+		final Try<Integer> subject = new Failure<>(new TestException());
 		assertThrows(NullPointerException.class, () -> subject.filter(null));
 
 		// dummy predicate, never gets called
 		final ThrowingPredicate<Integer> mock = throwingPredicate();
-		assertInstanceOf(FailureTestException.class,
+		assertInstanceOf(TestException.class,
 				assertNotSuccessful(subject.filter(mock)));
 		verifyZeroInteractions(mock);
 	}
@@ -41,12 +41,12 @@ class FailureTest {
 	@DisplayName("flatMap() test")
 	void flatMapTest() {
 		// null function
-		final Try<Integer> subject = new Failure<>(new FailureTestException());
+		final Try<Integer> subject = new Failure<>(new TestException());
 		assertThrows(NullPointerException.class, () -> subject.flatMap(null));
 
 		// dummy function, never gets called
 		final ThrowingFunction<Integer, Try<Double>> mock = throwingFunction();
-		assertInstanceOf(FailureTestException.class,
+		assertInstanceOf(TestException.class,
 				assertNotSuccessful(subject.flatMap(mock)));
 		verifyZeroInteractions(mock);
 	}
@@ -55,7 +55,7 @@ class FailureTest {
 	@DisplayName("flatRecover() test")
 	void flatRecoverTest() throws Exception {
 		// null function
-		final Exception ex = new FailureTestException();
+		final Exception ex = new TestException();
 		final Try<Integer> subject = new Failure<>(ex);
 		assertThrows(NullPointerException.class,
 				() -> subject.flatRecover(null));
@@ -83,7 +83,7 @@ class FailureTest {
 	@Test
 	@DisplayName("getCause() test")
 	void getCauseTest() {
-		final Exception ex = new FailureTestException();
+		final Exception ex = new TestException();
 		assertSame(ex, new Failure<>(ex).getCause());
 	}
 
@@ -91,13 +91,13 @@ class FailureTest {
 	@DisplayName("ifSuccessful() test")
 	void ifSuccessfulTest() {
 		// null consumer
-		final Try<Integer> subject = new Failure<>(new FailureTestException());
+		final Try<Integer> subject = new Failure<>(new TestException());
 		assertThrows(NullPointerException.class,
 				() -> subject.ifSuccessful(null));
 
 		// dummy consumer, never gets called
 		final ThrowingConsumer<Integer> mock = throwingConsumer();
-		assertInstanceOf(FailureTestException.class,
+		assertInstanceOf(TestException.class,
 				assertNotSuccessful(subject.ifSuccessful(mock)));
 		verifyZeroInteractions(mock);
 	}
@@ -105,7 +105,7 @@ class FailureTest {
 	@Test
 	void ifUnsuccessfulTest() throws Exception {
 		// null consumer
-		final Exception ex = new FailureTestException();
+		final Exception ex = new TestException();
 		final Try<Integer> subject = new Failure<>(ex);
 		assertThrows(NullPointerException.class,
 				() -> subject.ifUnsuccessful(null));
@@ -125,25 +125,25 @@ class FailureTest {
 	@Test
 	@DisplayName("isSuccessful() test")
 	void isSuccessfulTest() {
-		assertFalse(new Failure<>(new FailureTestException()).isSuccessful());
+		assertFalse(new Failure<>(new TestException()).isSuccessful());
 	}
 
 	@Test
 	@DisplayName("isUnsuccessful() test")
 	void isUnsuccessfulTest() {
-		assertTrue(new Failure<>(new FailureTestException()).isUnsuccessful());
+		assertTrue(new Failure<>(new TestException()).isUnsuccessful());
 	}
 
 	@Test
 	@DisplayName("map() test")
 	void mapTest() {
 		// null function
-		final Try<Integer> subject = new Failure<>(new FailureTestException());
+		final Try<Integer> subject = new Failure<>(new TestException());
 		assertThrows(NullPointerException.class, () -> subject.map(null));
 
 		// dummy function, never gets called
 		final ThrowingFunction<Integer, Double> mock = throwingFunction();
-		assertInstanceOf(FailureTestException.class,
+		assertInstanceOf(TestException.class,
 				assertNotSuccessful(subject.map(mock)));
 		verifyZeroInteractions(mock);
 	}
@@ -152,7 +152,7 @@ class FailureTest {
 	@DisplayName("orElseGet() test")
 	void orElseGetTest() {
 		// null supplier
-		final Try<Integer> subject = new Failure<>(new FailureTestException());
+		final Try<Integer> subject = new Failure<>(new TestException());
 		assertThrows(NullPointerException.class, () -> subject.orElseGet(null));
 
 		// constant supplier
@@ -165,14 +165,14 @@ class FailureTest {
 	@Test
 	@DisplayName("orElse() test")
 	void orElseTest() {
-		assertEquals(0, new Failure<>(new FailureTestException()).orElse(0));
+		assertEquals(0, new Failure<>(new TestException()).orElse(0));
 	}
 
 	@Test
 	@DisplayName("orElseThrow(Function) test")
 	void orElseThrowAnyTest() {
 		// null function
-		final Exception ex = new FailureTestException();
+		final Exception ex = new TestException();
 		final Try<Integer> subject = new Failure<>(ex);
 		assertThrows(NullPointerException.class,
 				() -> subject.orElseThrow(null));
@@ -188,14 +188,14 @@ class FailureTest {
 	@DisplayName("orElseThrow() test")
 	void orElseThrowTest() {
 		assertThrows(AttemptFailedException.class,
-				new Failure<>(new FailureTestException())::orElseThrow);
+				new Failure<>(new TestException())::orElseThrow);
 	}
 
 	@Test
 	@DisplayName("recover() test")
 	void recoverTest() throws Exception {
 		// null function
-		final Exception ex = new FailureTestException();
+		final Exception ex = new TestException();
 		final Try<Integer> subject = new Failure<>(ex);
 		assertThrows(NullPointerException.class, () -> subject.recover(null));
 
@@ -217,7 +217,7 @@ class FailureTest {
 	 *
 	 * @author Marco Buzzanca
 	 */
-	private static class FailureTestException extends RuntimeException {
+	private static class TestException extends RuntimeException {
 		/**
 		 * Required by {@link Serializable}.
 		 */
