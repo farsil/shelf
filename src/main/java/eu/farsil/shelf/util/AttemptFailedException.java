@@ -1,5 +1,6 @@
 package eu.farsil.shelf.util;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -9,6 +10,11 @@ import java.util.Objects;
  * @author Marco Buzzanca
  */
 public class AttemptFailedException extends RuntimeException {
+	/**
+	 * Required by {@link Serializable}.
+	 */
+	private static final long serialVersionUID = -6198901905401795069L;
+
 	/**
 	 * Builds an instance that holds the cause of the failure.
 	 *
