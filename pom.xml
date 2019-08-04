@@ -8,6 +8,35 @@
 	<artifactId>shelf</artifactId>
 	<version>0.1.0</version>
 
+	<name>shelf</name>
+	<description>
+		An utility library which aims to complement modern versions of the Java
+		standard libraries.
+	</description>
+	<url>https://github.com/farsil/shelf</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://mit-license.org/</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Marco Buzzanca</name>
+			<email>marco.bzn@gmail.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/farsil/shelf.git</connection>
+		<developerConnection>scm:git:ssh://github.com:farsil/shelf.git
+		</developerConnection>
+		<url>https://github.com/farsil/shelf/tree/master</url>
+	</scm>
+
 	<properties>
 		<!-- dependencies -->
 		<apiguardian.version>1.1.0</apiguardian.version>
@@ -22,6 +51,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.surefire.version>2.22.2</maven.surefire.version>
 		<maven.jacoco.version>0.8.4</maven.jacoco.version>
+		<maven.source.version>3.1.0</maven.source.version>
+		<maven.javadoc.version>3.1.1</maven.javadoc.version>
 	</properties>
 
 	<dependencies>
@@ -77,6 +108,30 @@
 						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven.source.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven.javadoc.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>

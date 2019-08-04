@@ -1,6 +1,5 @@
-package eu.farsil.shelf.util;
+package eu.farsil.shelf.function;
 
-import eu.farsil.shelf.function.ThrowingPredicate;
 import org.apiguardian.api.API;
 
 import java.io.Serializable;

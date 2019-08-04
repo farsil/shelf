@@ -1,4 +1,4 @@
-package eu.farsil.shelf.util;
+package eu.farsil.shelf.function;
 
 import eu.farsil.shelf.test.Serialization;
 import org.junit.jupiter.api.DisplayName;

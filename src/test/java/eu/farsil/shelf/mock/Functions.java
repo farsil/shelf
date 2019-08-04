@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
  * {@link eu.farsil.shelf.function} and {@link java.util.function} that can
  * be verified with the {@code verify()} method family of the {@link Mockito}
  * class.
- * <p/>
+ * <p>
  * This class is used to reduce boilerplate code that involves annotating
  * with {@code @SuppressWarnings} and casting to the appropriate functional
  * interface the instances obtained with {@link Mockito#mock(Class)

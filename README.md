@@ -1,9 +1,11 @@
 # Shelf  
 [![Build Status](https://travis-ci.com/farsil/shelf.svg?branch=master)](https://travis-ci.com/farsil/shelf)
 [![Code Coverage](https://codecov.io/gh/farsil/shelf/branch/master/graph/badge.svg)](https://codecov.io/gh/farsil/shelf)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/eu.farsil.shelf/shelf/badge.svg)](https://mvnrepository.com/artifact/eu.farsil.shelf/shelf)
+[![Javadoc](https://www.javadoc.io/badge/eu.farsil.shelf/shelf.svg)](https://www.javadoc.io/doc/eu.farsil.shelf/shelf)
 
-`shelf` is a java utility library which aims to complement modern versions of 
-the java standard libraries. It features easy-to-use classes that either 
+`shelf` is an utility library which aims to complement modern versions of 
+the Java standard libraries. It features easy-to-use classes that either 
 function as drop-in replacements that perform better than the original, or 
 fill some uncovered areas of the standard libraries. Its only requirement is 
 Java 1.8 or greater, and has no dependencies.

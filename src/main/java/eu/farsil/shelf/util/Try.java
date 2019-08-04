@@ -14,17 +14,16 @@ import java.util.function.Supplier;
 import static org.apiguardian.api.API.Status.EXPERIMENTAL;
 
 /**
- * This class provides an abstraction of a computation attempt.
+ * Provides an abstraction of a computation attempt.
  * <p>
  * The outcome of the computation determines whether instances of this class
  * are in a <i>successful</i> or <i>failed</i> state. Instances of {@code Try} in a
  * successful state hold the computed value, while instances in a failed
  * state hold the cause of the failure.
- * <p/>
  * In its essence, {@code Try} is a generalization of the {@link Optional}
  * class which is able to handle any arbitrary failure, while the {@code
  * Optional} class is limited to handle failures due to {@code null} values.
- * <p/>
+ * <p>
  * The computation is performed by the static method
  * {@link #get(ThrowingSupplier) get()}, and this class's fluent interface
  * allows users to chain method calls handling successful or failed operations:
@@ -34,7 +33,7 @@ import static org.apiguardian.api.API.Status.EXPERIMENTAL;
  *      .orElse(0);}</pre>
  * It is also possible to evaluate the success of the computation using the
  * {@link #isSuccessful()} and the {@link #getCause()} methods.
- * <p/>
+ * <p>
  * This class is not meant to replace the {@code try/catch} mechanism
  * entirely: its purpose is to help programmers deal with chains of method
  * calls that may throw an exception when invoked.
@@ -84,7 +83,7 @@ public interface Try<T> {
 	/**
 	 * Applies the given mapping function to the computed value if the
 	 * computation was successful.
-	 * <p/>
+	 * <p>
 	 * If the computation was successful, and the given function throws an
 	 * exception, or if the computation was unsuccessful, it returns a failure.
 	 *
@@ -101,7 +100,7 @@ public interface Try<T> {
 	/**
 	 * Applies the given mapping function to the cause of the failure if the
 	 * computation was unsuccessful.
-	 * <p/>
+	 * <p>
 	 * If the computation was successful, and the given function throws an
 	 * exception, or if the computation was unsuccessful, it returns a failure.
 	 *
@@ -126,7 +125,7 @@ public interface Try<T> {
 
 	/**
 	 * Performs the given action only if the computation was successful.
-	 * <p/>
+	 * <p>
 	 * If the action throws an exception it returns a failure, otherwise it
 	 * returns this instance regardless if it is a success or a failure.
 	 *
@@ -140,7 +139,7 @@ public interface Try<T> {
 
 	/**
 	 * Performs the given action only if the computation was unsuccessful.
-	 * <p/>
+	 * <p>
 	 * If the action throws an exception it returns a failure, otherwise it
 	 * returns this instance regardless if it is a success or a failure.
 	 *
@@ -171,7 +170,7 @@ public interface Try<T> {
 	/**
 	 * Applies the given mapping function to the computed value if the
 	 * computation was successful and wraps the result in a success.
-	 * <p/>
+	 * <p>
 	 * If the computation was successful, and the given function throws an
 	 * exception, or if the computation was unsuccessful, it returns a failure.
 	 *
@@ -221,7 +220,7 @@ public interface Try<T> {
 	 * Returns the computed value if the computation was successful,
 	 * otherwise throws an exception obtained by applying the specified
 	 * function to the cause of the failure.
-	 * <p/>
+	 * <p>
 	 * The given function is usually an exception constructor that takes a
 	 * single exception argument, used for exception chaining:
 	 * <pre>{@code final int result = Try.get(() -> Integer.parseInt(someString))
@@ -240,7 +239,7 @@ public interface Try<T> {
 	/**
 	 * Applies the given mapping function to the cause of the failure if the
 	 * computation was unsuccessful and wraps the result in a success.
-	 * <p/>
+	 * <p>
 	 * If the computation was successful, it returns a success holding the
 	 * original computed value. If computation was unsuccessful, and the given
 	 * function throws an exception, it returns a failure.

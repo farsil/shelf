@@ -1,5 +1,6 @@
 package eu.farsil.shelf.util;
 
+import eu.farsil.shelf.function.PredicateFailedException;
 import eu.farsil.shelf.function.ThrowingConsumer;
 import eu.farsil.shelf.function.ThrowingFunction;
 import eu.farsil.shelf.function.ThrowingPredicate;
