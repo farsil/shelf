@@ -108,8 +108,7 @@ class Failure<T> implements Try<T> {
 			final ThrowingFunction<? super Exception, ? extends T> mapper) {
 		Objects.requireNonNull(mapper);
 		try {
-			final T recovered = mapper.apply(cause);
-			return new Success<>(recovered);
+			return new Success<>(mapper.apply(cause));
 		} catch (final Exception e) {
 			return new Failure<>(e);
 		}
