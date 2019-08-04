@@ -4,5 +4,8 @@ jdk:
   - openjdk8
   - openjdk11
 
+install:
+  mvn install -B -V -DskipTests -Dgpg.skip -Dmaven.source.skip -Dmaven.javadoc.skip
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
