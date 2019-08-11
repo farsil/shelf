@@ -1,11 +1,11 @@
 package eu.farsil.shelf.mock;
 
-import eu.farsil.shelf.function.ThrowingConsumer;
-import eu.farsil.shelf.function.ThrowingFunction;
-import eu.farsil.shelf.function.ThrowingPredicate;
-import eu.farsil.shelf.function.ThrowingSupplier;
+import eu.farsil.shelf.lambda.function.ThrowingFunction;
+import eu.farsil.shelf.lambda.function.ThrowingPredicate;
+import eu.farsil.shelf.lambda.function.ThrowingSupplier;
 import org.mockito.Mockito;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 
 /**
  * Returns mock instances of the throwing functional interfaces of package
- * {@link eu.farsil.shelf.function} and {@link java.util.function} that can
+ * {@link eu.farsil.shelf.lambda.function} and {@link java.util.function} that can
  * be verified with the {@code verify()} method family of the {@link Mockito}
  * class.
  * <p>
@@ -30,6 +30,17 @@ public class Functions {
 	 */
 	private Functions() {
 		throw new AssertionError();
+	}
+
+	/**
+	 * Returns a mock {@link Consumer}.
+	 *
+	 * @param <T> the type of the input to the operation.
+	 * @return the mock consumer.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> Consumer<T> consumer() {
+		return (Consumer<T>) mock(Consumer.class);
 	}
 
 	/**
@@ -56,17 +67,6 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@link ThrowingConsumer}.
-	 *
-	 * @param <T> the type of the input to the operation.
-	 * @return the mock consumer.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> ThrowingConsumer<T> throwingConsumer() {
-		return (ThrowingConsumer<T>) mock(ThrowingConsumer.class);
-	}
-
-	/**
 	 * Returns a mock {@link ThrowingFunction}.
 	 *
 	 * @param <T> the type of the input to the function.
@@ -79,7 +79,7 @@ public class Functions {
 	}
 
 	/**
-	 * Returns a mock {@link ThrowingConsumer}.
+	 * Returns a mock {@link ThrowingPredicate}.
 	 *
 	 * @param <T> the type of the input to the predicate.
 	 * @return the mock predicate.

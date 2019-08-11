@@ -1,10 +1,10 @@
-package eu.farsil.shelf.util;
+package eu.farsil.shelf.lambda;
 
-import eu.farsil.shelf.function.ThrowingConsumer;
-import eu.farsil.shelf.function.ThrowingFunction;
-import eu.farsil.shelf.function.ThrowingPredicate;
+import eu.farsil.shelf.lambda.function.ThrowingFunction;
+import eu.farsil.shelf.lambda.function.ThrowingPredicate;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -63,20 +63,14 @@ class Failure<T> implements Try<T> {
 	}
 
 	@Override
-	public Try<T> ifSuccessful(final ThrowingConsumer<? super T> action) {
+	public Try<T> ifSuccessful(final Consumer<? super T> action) {
 		Objects.requireNonNull(action);
 		return this;
 	}
 
 	@Override
-	public Try<T> ifUnsuccessful(
-			final ThrowingConsumer<? super Exception> action) {
-		Objects.requireNonNull(action);
-		try {
-			action.accept(cause);
-		} catch (final Exception e) {
-			return new Failure<>(e);
-		}
+	public Try<T> ifUnsuccessful(final Consumer<? super Exception> action) {
+		action.accept(cause);
 		return this;
 	}
 

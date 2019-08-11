@@ -1,13 +1,13 @@
-package eu.farsil.shelf.util;
+package eu.farsil.shelf.lambda;
 
-import eu.farsil.shelf.function.ThrowingConsumer;
-import eu.farsil.shelf.function.ThrowingFunction;
-import eu.farsil.shelf.function.ThrowingPredicate;
+import eu.farsil.shelf.lambda.function.ThrowingFunction;
+import eu.farsil.shelf.lambda.function.ThrowingPredicate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -96,30 +96,24 @@ class FailureTest {
 				() -> subject.ifSuccessful(null));
 
 		// dummy consumer, never gets called
-		final ThrowingConsumer<Integer> mock = throwingConsumer();
+		final Consumer<Integer> mock = consumer();
 		assertInstanceOf(TestException.class,
 				assertNotSuccessful(subject.ifSuccessful(mock)));
 		verifyZeroInteractions(mock);
 	}
 
 	@Test
-	void ifUnsuccessfulTest() throws Exception {
+	void ifUnsuccessfulTest() {
 		// null consumer
 		final Exception ex = new TestException();
 		final Try<Integer> subject = new Failure<>(ex);
 		assertThrows(NullPointerException.class,
 				() -> subject.ifUnsuccessful(null));
 
-		// dummy consumer
-		final ThrowingConsumer<Exception> mock = throwingConsumer();
+		// consumer
+		final Consumer<Exception> mock = consumer();
 		assertEquals(ex, assertNotSuccessful(subject.ifUnsuccessful(mock)));
 		verify(mock).accept(ex);
-
-		// throwing consumer
-		doThrow(IOException.class).when(mock).accept(ex);
-		assertInstanceOf(IOException.class,
-				assertNotSuccessful(subject.ifUnsuccessful(mock)));
-		verify(mock, times(2)).accept(ex);
 	}
 
 	@Test

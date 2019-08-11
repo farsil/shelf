@@ -1,13 +1,13 @@
-package eu.farsil.shelf.util;
+package eu.farsil.shelf.lambda;
 
-import eu.farsil.shelf.function.ThrowingConsumer;
-import eu.farsil.shelf.function.ThrowingFunction;
-import eu.farsil.shelf.function.ThrowingPredicate;
-import eu.farsil.shelf.function.ThrowingSupplier;
+import eu.farsil.shelf.lambda.function.ThrowingFunction;
+import eu.farsil.shelf.lambda.function.ThrowingPredicate;
+import eu.farsil.shelf.lambda.function.ThrowingSupplier;
 import org.apiguardian.api.API;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -125,31 +125,25 @@ public interface Try<T> {
 
 	/**
 	 * Performs the given action only if the computation was successful.
-	 * <p>
-	 * If the action throws an exception it returns a failure, otherwise it
-	 * returns this instance regardless if it is a success or a failure.
 	 *
 	 * @param action the action to perform. The computed value is passed as a
 	 * parameter.
-	 * @return this instance, or a failure if the action throws.
+	 * @return this instance.
 	 * @throws NullPointerException if the action is {@code null}.
-	 * @see ThrowingConsumer
+	 * @see Consumer
 	 */
-	Try<T> ifSuccessful(final ThrowingConsumer<? super T> action);
+	Try<T> ifSuccessful(final Consumer<? super T> action);
 
 	/**
 	 * Performs the given action only if the computation was unsuccessful.
-	 * <p>
-	 * If the action throws an exception it returns a failure, otherwise it
-	 * returns this instance regardless if it is a success or a failure.
 	 *
 	 * @param action the action to perform. The cause of the failure is passed
 	 * as a parameter.
-	 * @return this instance, or a failure if the action throws.
+	 * @return this instance.
 	 * @throws NullPointerException if the action is {@code null}.
-	 * @see ThrowingConsumer
+	 * @see Consumer
 	 */
-	Try<T> ifUnsuccessful(final ThrowingConsumer<? super Exception> action);
+	Try<T> ifUnsuccessful(final Consumer<? super Exception> action);
 
 	/**
 	 * Returns whether the computation was successful.

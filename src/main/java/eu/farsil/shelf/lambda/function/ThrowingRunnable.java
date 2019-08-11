@@ -1,4 +1,4 @@
-package eu.farsil.shelf.function;
+package eu.farsil.shelf.lambda.function;
 
 import org.apiguardian.api.API;
 

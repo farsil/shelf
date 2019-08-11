@@ -1,6 +1,6 @@
-package eu.farsil.shelf.util;
+package eu.farsil.shelf.lambda;
 
-import eu.farsil.shelf.function.ThrowingSupplier;
+import eu.farsil.shelf.lambda.function.ThrowingSupplier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,8 @@
 package eu.farsil.shelf.test;
 
-import eu.farsil.shelf.function.ThrowingRunnable;
-import eu.farsil.shelf.function.ThrowingSupplier;
-import eu.farsil.shelf.util.Try;
+import eu.farsil.shelf.lambda.function.ThrowingRunnable;
+import eu.farsil.shelf.lambda.function.ThrowingSupplier;
+import eu.farsil.shelf.lambda.Try;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 
