@@ -1,7 +1,7 @@
 # Shelf  
 [![Build Status](https://travis-ci.com/farsil/shelf.svg?branch=master)](https://travis-ci.com/farsil/shelf)
 [![Code Coverage](https://codecov.io/gh/farsil/shelf/branch/master/graph/badge.svg)](https://codecov.io/gh/farsil/shelf)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/eu.farsil.shelf/shelf/badge.svg)](https://mvnrepository.com/artifact/eu.farsil.shelf/shelf)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/eu.farsil.shelf/shelf/badge.svg)](https://search.maven.org/artifact/eu.farsil.shelf/shelf)
 [![Javadoc](https://www.javadoc.io/badge/eu.farsil.shelf/shelf.svg)](https://www.javadoc.io/doc/eu.farsil.shelf/shelf)
 
 `shelf` is an utility library which aims to complement modern versions of 
@@ -18,7 +18,7 @@ found in `java.util.function` that allow an `Exception` to be thrown.
 to handle any arbitrary failure.
 
 # Maven
-`shelf` is published in maven central. To use it, include the following 
+`shelf` is published in [maven central](https://search.maven.org/artifact/eu.farsil.shelf/shelf). To use it, include the following 
 dependency in your `pom.xml`.
 ```
 <dependency>
